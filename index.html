@@ -1880,4 +1880,75 @@
                     entry.target.classList.add('animate');
                 }
             });
-        }, observerOptions
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .doc-card, .team-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Portfolio Slider
+        const portfolioTrack = document.getElementById('portfolioTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        const itemWidth = 430; // 400px width + 30px gap
+
+        nextBtn.addEventListener('click', () => {
+            const maxScroll = portfolioTrack.children.length - 3;
+            if (currentIndex < maxScroll) {
+                currentIndex++;
+                updateSliderPosition();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSliderPosition();
+            }
+        });
+
+        function updateSliderPosition() {
+            portfolioTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+
+        // Auto-play slider
+        setInterval(() => {
+            const maxScroll = portfolioTrack.children.length - 3;
+            if (currentIndex < maxScroll) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateSliderPosition();
+        }, 3000);
+
+        // File upload display
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadText = document.querySelector('.file-upload-text');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    fileUploadText.textContent = e.target.files[0].name;
+                } else {
+                    fileUploadText.textContent = 'Choose a file or drag and drop here';
+                }
+            });
+        }
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your inquiry! We will get back to you soon.');
+                contactForm.reset();
+                fileUploadText.textContent = 'Choose a file or drag and drop here';
+            });
+        }
+
+        console.log('Porto Production Website Loaded Successfully! 🎬');
+    </script>
+</body>
+</html>
