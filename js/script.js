@@ -1,4 +1,4 @@
-// Navbar scroll effect
+// ==================== NAVBAR SCROLL EFFECT ====================
 const navbar = document.getElementById('navbar');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -10,7 +10,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Hamburger menu toggle
+// ==================== HAMBURGER MENU TOGGLE ====================
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
@@ -19,9 +19,9 @@ hamburger.addEventListener('click', () => {
     
     const spans = hamburger.querySelectorAll('span');
     if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
+        spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
         spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+        spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
     } else {
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
@@ -29,7 +29,7 @@ hamburger.addEventListener('click', () => {
     }
 });
 
-// Close menu when clicking nav links
+// ==================== CLOSE MENU WHEN CLICKING NAV LINKS ====================
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -41,7 +41,7 @@ navLinks.forEach(link => {
     });
 });
 
-// Smooth scrolling
+// ==================== SMOOTH SCROLLING ====================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -57,7 +57,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Active nav link on scroll
+// ==================== ACTIVE NAV LINK ON SCROLL ====================
 const sections = document.querySelectorAll('section');
 
 window.addEventListener('scroll', () => {
@@ -80,59 +80,197 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Intersection Observer for animations
+// ==================== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS ====================
 const observerOptions = {
-    threshold: 0.1,
+    threshold: 0.15,
     rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+            entry.target.classList.add('animate');
         }
     });
 }, observerOptions);
 
-document.querySelectorAll('.value-card, .service-card, .team-card').forEach(card => {
-    card.style.opacity = '0';
+document.querySelectorAll('.service-card, .doc-card, .team-card').forEach(card => {
     observer.observe(card);
 });
 
-// Parallax effect
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroContent = document.querySelector('.hero-content');
-    
-    if (heroContent && scrolled <= window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
-    }
+// ==================== PORTFOLIO SLIDER WITH MOUSE DRAG & TOUCH SUPPORT ====================
+const portfolioSlider = document.getElementById('portfolioSlider');
+const portfolioTrack = document.getElementById('portfolioTrack');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+// Mouse drag functionality
+portfolioSlider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    portfolioSlider.classList.add('grabbing');
+    startX = e.pageX - portfolioSlider.offsetLeft;
+    scrollLeft = portfolioTrack.style.transform ? 
+        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
 });
 
-// File upload display
+portfolioSlider.addEventListener('mouseleave', () => {
+    isDown = false;
+    portfolioSlider.classList.remove('grabbing');
+});
+
+portfolioSlider.addEventListener('mouseup', () => {
+    isDown = false;
+    portfolioSlider.classList.remove('grabbing');
+});
+
+portfolioSlider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - portfolioSlider.offsetLeft;
+    const walk = (x - startX) * 2;
+    const newPosition = scrollLeft + walk;
+    
+    // Limit scrolling
+    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
+    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
+    
+    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
+});
+
+// Touch support for mobile
+let touchStartX = 0;
+let touchScrollLeft = 0;
+
+portfolioSlider.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].pageX;
+    touchScrollLeft = portfolioTrack.style.transform ? 
+        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
+});
+
+portfolioSlider.addEventListener('touchmove', (e) => {
+    const x = e.touches[0].pageX;
+    const walk = (x - touchStartX) * 2;
+    const newPosition = touchScrollLeft + walk;
+    
+    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
+    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
+    
+    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
+});
+
+// Mouse wheel horizontal scroll
+portfolioSlider.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const currentTransform = portfolioTrack.style.transform ? 
+        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
+    
+    const newPosition = currentTransform - (e.deltaY * 2);
+    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
+    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
+    
+    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
+}, { passive: false });
+
+// ==================== FILE UPLOAD DISPLAY ====================
 const fileInput = document.getElementById('fileInput');
-const fileUploadText = document.querySelector('.file-upload-text');
+const fileName = document.getElementById('fileName');
 
 if (fileInput) {
     fileInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) {
-            fileUploadText.textContent = e.target.files[0].name;
+            const file = e.target.files[0];
+            const fileSize = (file.size / 1024).toFixed(2);
+            fileName.textContent = `📎 ${file.name} (${fileSize} KB)`;
+            fileName.classList.add('active');
         } else {
-            fileUploadText.textContent = 'Choose a file or drag and drop here';
+            fileName.textContent = '';
+            fileName.classList.remove('active');
         }
     });
 }
 
-// Form submission
+// ==================== FORM SUBMISSION WITH RESULT DISPLAY ====================
 const contactForm = document.getElementById('contactForm');
+const submissionResult = document.getElementById('submissionResult');
+const resultBody = document.getElementById('resultBody');
+
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('Thank you for your inquiry! We will get back to you soon.');
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const service = formData.get('service');
+        const budget = formData.get('budget');
+        const fullname = formData.get('fullname');
+        const email = formData.get('email');
+        const details = formData.get('details');
+        const file = fileInput.files[0];
+        
+        // Build result HTML
+        let resultHTML = `
+            <div class="result-item">
+                <div class="result-label">Service:</div>
+                <div class="result-value">${service}</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Budget:</div>
+                <div class="result-value">${budget}</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Full Name:</div>
+                <div class="result-value">${fullname}</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Email:</div>
+                <div class="result-value">${email}</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Project Details:</div>
+                <div class="result-value">${details}</div>
+            </div>
+        `;
+        
+        if (file) {
+            const fileSize = (file.size / 1024).toFixed(2);
+            resultHTML += `
+                <div class="result-item">
+                    <div class="result-label">Attached File:</div>
+                    <div class="result-value">${file.name} (${fileSize} KB)</div>
+                </div>
+            `;
+        }
+        
+        // Display result
+        resultBody.innerHTML = resultHTML;
+        submissionResult.classList.add('active');
+        
+        // Scroll to result smoothly
+        setTimeout(() => {
+            submissionResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+        
+        // Reset form
         contactForm.reset();
-        fileUploadText.textContent = 'Choose a file or drag and drop here';
+        fileName.textContent = '';
+        fileName.classList.remove('active');
+        
+        // Optional: Hide result after 10 seconds
+        setTimeout(() => {
+            submissionResult.classList.remove('active');
+        }, 10000);
     });
 }
 
-console.log('Porto Production Website Loaded Successfully! 🎬');
+// ==================== CONSOLE LOG ====================
+console.log('🎬 Porto Production Website Loaded Successfully! ✨');
+console.log('📝 All features initialized:');
+console.log('   ✅ Navbar scroll effect');
+console.log('   ✅ Hamburger menu');
+console.log('   ✅ Smooth scrolling');
+console.log('   ✅ Active nav links');
+console.log('   ✅ Scroll animations');
+console.log('   ✅ Portfolio slider (drag, touch, wheel)');
+console.log('   ✅ File upload display');
+console.log('   ✅ Form submission with results');
