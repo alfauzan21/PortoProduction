@@ -215,6 +215,105 @@ body {
     background: var(--primary-black);
 }
 
+/* ==================== NAVBAR MOBILE - LOGO CENTER FIX ==================== */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .nav-content {
+        position: relative;
+        justify-content: center;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        /* Logo di atas konten lain */
+    }
+
+    /* PERBAIKAN: Logo tetap centered saat navbar scrolled */
+    .navbar.scrolled .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 0;
+        z-index: 10;
+    }
+
+    .nav-buttons {
+        display: none;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background: var(--primary-white);
+        flex-direction: column;
+        padding: 30px 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: left 0.4s ease;
+        gap: 0;
+        margin: 0;
+        justify-content: flex-start;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin-bottom: 20px;
+    }
+
+    .nav-link {
+        color: var(--primary-black);
+        font-size: 16px;
+    }
+
+    .nav-link::after {
+        background: var(--primary-navy);
+    }
+
+    /* Responsive untuk Clients */
+    .clients-title {
+        font-size: 38px;
+    }
+
+    .clients-subtitle {
+        font-size: 14px;
+        padding: 0 20px;
+    }
+
+    .client-logo {
+        width: 140px;
+        height: 80px;
+    }
+
+    .clients-track {
+        gap: 40px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .client-logo {
+        width: 120px;
+        height: 70px;
+    }
+
+    .clients-track {
+        gap: 30px;
+    }
+}
+
 /* ==================== HERO SECTION ==================== */
 .hero {
     position: relative;
@@ -1640,10 +1739,10 @@ body {
     }
 }
 
-/* ==================== CLIENTS SECTION STYLES ==================== */
+/* ==================== CLIENTS SECTION - HOVER FIX ==================== */
 .clients-section {
     padding: 100px 0;
-    background: var(--primary-white, #ffffff);
+    background: var(--primary-white);
     overflow: hidden;
 }
 
@@ -1656,13 +1755,13 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 52px;
     font-weight: 800;
-    color: var(--primary-navy, #1B4B7F);
+    color: var(--primary-navy);
     margin-bottom: 20px;
 }
 
 .clients-subtitle {
     font-size: 16px;
-    color: var(--medium-gray, #6b7280);
+    color: var(--medium-gray);
     max-width: 600px;
     margin: 0 auto;
     line-height: 1.6;
@@ -1682,6 +1781,7 @@ body {
     width: max-content;
 }
 
+/* PERBAIKAN: Hover tidak akan reset posisi animasi */
 .clients-track:hover {
     animation-play-state: paused;
 }
@@ -1694,9 +1794,10 @@ body {
     width: 180px;
     height: 100px;
     padding: 20px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     flex-shrink: 0;
+    /* PERBAIKAN: Hapus pointer-events agar hover tetap smooth */
 }
 
 .client-logo img {
@@ -1704,15 +1805,17 @@ body {
     max-height: 100%;
     object-fit: contain;
     filter: grayscale(100%) brightness(0.3) opacity(0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* PERBAIKAN: Hover hanya pada logo, bukan container */
 .client-logo:hover img {
     filter: grayscale(0%) brightness(1) opacity(1);
     transform: scale(1.15);
 }
 
-/* Animation Keyframes */
+/* Animation Keyframes - TETAP SAMA */
 @keyframes scrollLogos {
     0% {
         transform: translateX(0);
@@ -1765,3 +1868,127 @@ body {
         gap: 40px;
     }
 }
+
+ /* ==================== PARTNERS SECTION STYLES ==================== */
+        .partners-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .partners-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .partners-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .partners-categories {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .partner-category {
+            text-align: center;
+        }
+
+        .category-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .category-logos {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Partners Grid Layout */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 40px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+            justify-items: center;
+        }
+
+        /* Individual Partner Logo */
+        .partner-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 140px;
+            height: 80px;
+            padding: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(0.3) opacity(0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.15);
+        }
+
+        .partner-logo:hover img {
+            filter: grayscale(0%) brightness(1) opacity(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .partners-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 30px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .partners-title {
+                font-size: 38px;
+            }
+
+            .partners-categories {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+
+            .partner-logo {
+                width: 100px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
