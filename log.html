@@ -1,0 +1,1669 @@
+@ -0,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porto Production - Professional Production Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-white: #ffffff;
+            --primary-gray: #808080;
+            --light-gray: #f5f5f5;
+            --dark-gray: #1a1a1a;
+            --purple-accent: #6C5CE7;
+            --green-accent: #7FFF00;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            padding: 25px 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 45px;
+            animation: fadeInDown 0.8s ease 0.2s both;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary-white);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--green-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--green-accent);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            animation: slideInRight 0.8s ease 0.3s both;
+        }
+
+        .btn-booking,
+        .btn-contact {
+            padding: 12px 28px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-booking {
+            background: transparent;
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+        }
+
+        .btn-booking:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-contact {
+            background: var(--green-accent);
+            color: var(--primary-black);
+            border: 2px solid var(--green-accent);
+        }
+
+        .btn-contact:hover {
+            background: transparent;
+            color: var(--green-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(127, 255, 0, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-white);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--primary-white);
+            max-width: 900px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-subtitle {
+            font-size: 28px;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .btn-hero {
+            display: inline-block;
+            padding: 18px 50px;
+            background: var(--green-accent);
+            color: var(--primary-black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease 0.7s both;
+            border: 3px solid var(--green-accent);
+        }
+
+        .btn-hero:hover {
+            background: transparent;
+            color: var(--green-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(127, 255, 0, 0.4);
+        }
+
+        /* Value Section */
+        .value-section {
+            padding: 120px 0;
+            background: var(--primary-white);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 70px;
+            color: var(--primary-black);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: var(--green-accent);
+            border-radius: 10px;
+        }
+
+        .value-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 50px 35px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .value-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .value-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(108, 92, 231, 0.2);
+            border-color: var(--purple-accent);
+        }
+
+        .value-icon {
+            margin-bottom: 25px;
+            transition: transform 0.5s ease;
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .value-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--purple-accent);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .value-card:hover .value-number {
+            color: var(--green-accent);
+        }
+
+        .value-label {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--primary-black);
+            margin-bottom: 18px;
+        }
+
+        .value-description {
+            font-size: 15px;
+            color: var(--primary-gray);
+            line-height: 1.8;
+        }
+
+        /* Service Section */
+        .service-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: var(--primary-white);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 9/14;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--purple-accent) 0%, var(--green-accent) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 25px 60px rgba(108, 92, 231, 0.3);
+        }
+
+        .service-image {
+            margin-bottom: 35px;
+            color: var(--purple-accent);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:hover .service-image {
+            color: var(--green-accent);
+            transform: scale(1.15) rotateY(360deg);
+        }
+
+        .service-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-black);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-description {
+            font-size: 15px;
+            color: var(--primary-gray);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 120px 0;
+            background: var(--primary-white);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .portfolio-coming {
+            text-align: center;
+            color: var(--primary-gray);
+            font-size: 20px;
+            margin-top: 20px;
+            animation: pulse 2s ease infinite;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .team-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--green-accent);
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            animation: bounce 2s ease infinite;
+            letter-spacing: 1px;
+        }
+
+        .team-badge::before,
+        .team-badge::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        .team-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            background: var(--primary-white);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .team-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-card.featured {
+            border: 4px solid var(--green-accent);
+        }
+
+        .team-image {
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-image::after {
+            content: '👤';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+        }
+
+        .team-card:hover .team-image::after {
+            transform: translate(-50%, -50%) scale(1.2);
+            opacity: 0.1;
+        }
+
+        .team-social {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) translateX(100px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-card:hover .team-social {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--green-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.15) rotate(360deg);
+            background: var(--primary-black);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-info {
+            padding: 30px;
+            background: var(--primary-white);
+            transition: all 0.3s ease;
+        }
+
+        .team-card.featured .team-info {
+            background: var(--dark-gray);
+            color: var(--primary-white);
+        }
+
+        .team-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            font-size: 15px;
+            color: var(--primary-gray);
+        }
+
+        .team-card.featured .team-role {
+            color: var(--light-gray);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 70px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info {
+            color: var(--primary-white);
+            animation: slideInLeft 1s ease;
+        }
+
+        .contact-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 35px;
+            line-height: 1.2;
+        }
+
+        .contact-features {
+            list-style: none;
+            margin-bottom: 45px;
+        }
+
+        .contact-features li {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
+            font-size: 17px;
+            animation: fadeInLeft 0.8s ease backwards;
+        }
+
+        .contact-features li:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .contact-features li:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .contact-features li:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .contact-features li::before {
+            content: '✓';
+            width: 28px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .contact-email {
+            display: inline-block;
+            color: var(--primary-white);
+            font-size: 20px;
+            text-decoration: none;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-white);
+            padding-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            color: var(--green-accent);
+            border-color: var(--green-accent);
+            transform: translateX(10px);
+        }
+
+        .contact-cta {
+            margin-top: 30px;
+        }
+
+        .contact-cta p {
+            margin-bottom: 18px;
+            font-size: 17px;
+        }
+
+        .btn-book-call {
+            display: inline-block;
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--primary-white);
+            text-decoration: none;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+        }
+
+        .btn-book-call:hover {
+            background: var(--primary-white);
+            color: #10b981;
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-form-wrapper {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            animation: slideInRight 1s ease;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--primary-white);
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            color: var(--primary-white);
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-white);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .radio-label {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            color: var(--primary-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .radio-label:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .radio-label input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-white);
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-label input[type="radio"]:checked {
+            background: var(--primary-white);
+            border-color: var(--green-accent);
+        }
+
+        .radio-label input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .file-upload {
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 3px dashed rgba(255, 255, 255, 0.35);
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-bottom: 25px;
+        }
+
+        .file-upload:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.02);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-white);
+            color: #10b981;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4);
+            background: var(--green-accent);
+            color: var(--primary-black);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo-section img {
+            height: 50px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: var(--primary-gray);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .footer-social a:hover {
+            background: var(--green-accent);
+            color: var(--primary-black);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--primary-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--green-accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--primary-gray);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-logo-section {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 75px;
+                right: -100%;
+                width: 75%;
+                height: calc(100vh - 75px);
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 50px 30px;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+                gap: 25px;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-buttons {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 38px;
+            }
+
+            .hero-subtitle {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 38px;
+            }
+
+            .value-cards,
+            .service-cards,
+            .team-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row,
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-wrapper {
+                padding: 35px 25px;
+            }
+
+            .contact-title {
+                font-size: 34px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .btn-hero {
+                padding: 14px 35px;
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .contact-title {
+                font-size: 26px;
+            }
+
+            .value-number {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="assets/img/Porto_Logo Putih.png" alt="Porto Production Logo">
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#service" class="nav-link">Service</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#team" class="nav-link">Team</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="#booking" class="btn-booking">Booking</a>
+                    <a href="#contact" class="btn-contact">Contact</a>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="assets/video/video-porto.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">"Professional Production for Powerful Stories."</h1>
+            <p class="hero-subtitle">From Imagination to Reality.</p>
+            <a href="#service" class="btn-hero">Bergabung</a>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Value</h2>
+            <div class="value-cards">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="#6C5CE7" stroke-width="2" />
+                            <path d="M8 12L11 15L16 9" stroke="#6C5CE7" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3 class="value-number">32167</h3>
+                    <p class="value-label">Movies Laurel</p>
+                    <p class="value-description">If you are looking for high-quality and reliable production services.
+                        Our studio is the best option.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="#6C5CE7" stroke-width="2" />
+                            <path d="M12 7V12L15 15" stroke="#6C5CE7" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3 class="value-number">25</h3>
+                    <p class="value-label">Years Experience</p>
+                    <p class="value-description">If you are looking for high-quality and reliable production services.
+                        Our studio is the best option.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 3L8 3L8 21L3 21" stroke="#6C5CE7" stroke-width="2" />
+                            <path d="M8 8L21 8L21 21L8 21" stroke="#6C5CE7" stroke-width="2" />
+                            <path d="M12 12L17 17M17 12L12 17" stroke="#6C5CE7" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="value-number">40</h3>
+                    <p class="value-label">Awards Won</p>
+                    <p class="value-description">If you are looking for high-quality and reliable production services.
+                        Our studio is the best option.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Section -->
+    <section class="service-section" id="service">
+        <div class="container">
+            <h2 class="section-title">Service</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <div class="service-image">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path d="M8 21H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            <path d="M12 17V21" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Video Production</h3>
+                    <p class="service-description">High-quality video production services for your business needs, from
+                        concept to final delivery.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="2" />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                            <path d="M9 2L15 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Photography</h3>
+                    <p class="service-description">Professional photography services capturing your moments with
+                        artistic excellence and technical precision.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path d="M9 9L15 12L9 15V9Z" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Post Production</h3>
+                    <p class="service-description">Expert editing and post-production services to transform your raw
+                        footage into compelling content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfolio</h2>
+            <p class="portfolio-coming">Coming Soon - Our Best Works</p>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="team-section" id="team">
+        <div class="container">
+            <div class="team-header">
+                <div class="team-badge">Our Team</div>
+                <h2 class="section-title">Meet Our Expert Team</h2>
+            </div>
+            <div class="team-cards">
+                <div class="team-card featured">
+                    <div class="team-image">
+                        <div class="team-social">
+                            <div class="social-icon">📘</div>
+                            <div class="social-icon">🐦</div>
+                            <div class="social-icon">📷</div>
+                            <div class="social-icon">🔗</div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Jenny Alexander</h3>
+                        <p class="team-role">Digital Marketing Manager</p>
+                    </div>
+                </div>
+
+                <div class="team-card featured">
+                    <div class="team-image">
+                        <div class="team-social">
+                            <div class="social-icon">📘</div>
+                            <div class="social-icon">🐦</div>
+                            <div class="social-icon">📷</div>
+                            <div class="social-icon">🔗</div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Jenny Alexander</h3>
+                        <p class="team-role">Digital Marketing Manager</p>
+                    </div>
+                </div>
+
+                <div class="team-card featured">
+                    <div class="team-image">
+                        <div class="team-social">
+                            <div class="social-icon">📘</div>
+                            <div class="social-icon">🐦</div>
+                            <div class="social-icon">📷</div>
+                            <div class="social-icon">🔗</div>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Jenny Alexander</h3>
+                        <p class="team-role">Digital Marketing Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 class="contact-title">Tell us about your project</h2>
+                    <ul class="contact-features">
+                        <li>We will respond to you within 12 hours</li>
+                        <li>We'll sign an NDA if requested</li>
+                        <li>Access to dedicated consultant specialists</li>
+                    </ul>
+                    <a href="mailto:hello@portoproduction.com" class="contact-email">hello@portoproduction.com</a>
+                    <div class="contact-cta">
+                        <p>Always busy and want to book an exact time to call?</p>
+                        <a href="#booking" class="btn-book-call">Book a free call</a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label class="form-label">Service</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="service" value="video" checked>
+                                    <span>Video</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="service" value="photo">
+                                    <span>Photo</span>
+                                </label>
+                            </div>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="service" value="post">
+                                    <span>Post Production</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="service" value="other">
+                                    <span>Other</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Budget</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="budget" value="less10k" checked>
+                                    <span>Less than $10K</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="budget" value="10k-50k">
+                                    <span>$10K - $50K</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="budget" value="more50k">
+                                    <span>More than $50K</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full name*</label>
+                                <input type="text" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email*</label>
+                                <input type="email" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Project details*</label>
+                            <textarea class="form-textarea" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Attach a file (optional)</label>
+                            <label class="file-upload">
+                                <input type="file" id="fileInput">
+                                <p class="file-upload-text">Choose a file or drag and drop here</p>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Submit inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo-section">
+                    <img src="assets/img/Porto_Logo Putih.png" alt="Porto Production Logo">
+                    <p class="footer-description">Professional production studio delivering excellence in video
+                        production, photography, and post-production services.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="TikTok">🎵</a>
+                        <a href="#" aria-label="YouTube">▶️</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">Our Story</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#service">Video Production</a></li>
+                        <li><a href="#service">Photography</a></li>
+                        <li><a href="#service">Post Production</a></li>
+                        <li><a href="#">Consultation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Blog</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Latest News</a></li>
+                        <li><a href="#">Industry Insights</a></li>
+                        <li><a href="#">Tips & Tricks</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Get in Touch</a></li>
+                        <li><a href="#booking">Book a Call</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-text">&copy; 2025 Porto Production. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+
+            const spans = hamburger.querySelectorAll('span');
+            if (navMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when clicking nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+
+                if (target) {
+                    const offsetTop = target.offsetTop - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.value-card, .service-card, .team-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // File upload display
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadText = document.querySelector('.file-upload-text');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    fileUploadText.textContent = e.target.files[0].name;
+                } else {
+                    fileUploadText.textContent = 'Choose a file or drag and drop here';
+                }
+            });
+        }
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your inquiry! We will get back to you soon.');
+                contactForm.reset();
+                fileUploadText.textContent = 'Choose a file or drag and drop here';
+            });
+        }
+
+        console.log('Porto Production Website Loaded Successfully! 🎬');
+    </script>
+</body>
+
+</html>
