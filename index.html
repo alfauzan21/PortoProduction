@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porto Production - Professional Production Studio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <div class="logo-text">PORTO</div>
+                    <img src="images/LOGO PORTO - WHITE.png" alt="Porto Production" class="logo-img logo-white">
+                    <img src="images/LOGO PORTO - MASTER.png" alt="Porto Production" class="logo-img logo-navy">
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="log.html" class="nav-link">About</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#service" class="nav-link">Service</a></li>
                     <li><a href="#documentation" class="nav-link">Documentation</a></li>
                     <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
@@ -40,7 +45,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="assets/video/video-porto.mp4" type="video/mp4">
+            <source src="video/video-porto.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -56,8 +61,8 @@
             <div class="about-content">
                 <h2 class="about-title">About Porto Production</h2>
                 <p class="about-description">
-                    We are a professional production studio dedicated to bringing your creative vision to life. 
-                    With years of experience and a passionate team, we deliver exceptional video production, 
+                    We are a professional production studio dedicated to bringing your creative vision to life.
+                    With years of experience and a passionate team, we deliver exceptional video production,
                     photography, and post-production services that exceed expectations.
                 </p>
                 <div class="about-stats">
@@ -249,7 +254,8 @@
             </div>
             <div class="community-cards">
                 <div class="community-card">
-                    <div class="community-card-bg" style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.8), rgba(153, 27, 27, 0.9));">
+                    <div class="community-card-bg"
+                        style="background: linear-gradient(135deg, rgba(27, 75, 127, 0.8), rgba(19, 64, 114, 0.9));">
                         <div style="font-size: 150px; text-align: center; padding-top: 80px; opacity: 0.3;">📝</div>
                     </div>
                     <div class="community-card-content">
@@ -258,7 +264,8 @@
                     </div>
                 </div>
                 <div class="community-card">
-                    <div class="community-card-bg" style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.8), rgba(91, 33, 182, 0.9));">
+                    <div class="community-card-bg"
+                        style="background: linear-gradient(135deg, rgba(27, 75, 127, 0.8), rgba(37, 99, 168, 0.9));">
                         <div style="font-size: 150px; text-align: center; padding-top: 80px; opacity: 0.3;">💬</div>
                     </div>
                     <div class="community-card-content">
@@ -267,7 +274,8 @@
                     </div>
                 </div>
                 <div class="community-card">
-                    <div class="community-card-bg" style="background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.9));">
+                    <div class="community-card-bg"
+                        style="background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.9));">
                         <div style="font-size: 150px; text-align: center; padding-top: 80px; opacity: 0.3;">🎙️</div>
                     </div>
                     <div class="community-card-content">
@@ -276,7 +284,8 @@
                     </div>
                 </div>
                 <div class="community-card">
-                    <div class="community-card-bg" style="background: linear-gradient(135deg, rgba(234, 88, 12, 0.8), rgba(194, 65, 12, 0.9));">
+                    <div class="community-card-bg"
+                        style="background: linear-gradient(135deg, rgba(27, 75, 127, 0.8), rgba(19, 64, 114, 0.9));">
                         <div style="font-size: 150px; text-align: center; padding-top: 80px; opacity: 0.3;">🛍️</div>
                     </div>
                     <div class="community-card-content">
@@ -410,17 +419,20 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Full name*</label>
-                                <input type="text" name="fullname" class="form-input" placeholder="Enter your full name" required>
+                                <input type="text" name="fullname" class="form-input" placeholder="Enter your full name"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email*</label>
-                                <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                                <input type="email" name="email" class="form-input" placeholder="Enter your email"
+                                    required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Project details*</label>
-                            <textarea name="details" class="form-textarea" placeholder="Tell us about your project..." required></textarea>
+                            <textarea name="details" class="form-textarea" placeholder="Tell us about your project..."
+                                required></textarea>
                         </div>
 
                         <div class="form-group file-upload-wrapper">
@@ -458,7 +470,8 @@
             <div class="footer-content">
                 <div class="footer-logo-section">
                     <div class="footer-logo-text">PORTO</div>
-                    <p class="footer-description">Professional production studio delivering excellence in video production, photography, and post-production services.</p>
+                    <p class="footer-description">Professional production studio delivering excellence in video
+                        production, photography, and post-production services.</p>
                     <div class="footer-social">
                         <a href="#" aria-label="Instagram">📷</a>
                         <a href="#" aria-label="TikTok">🎵</a>
@@ -517,4 +530,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
