@@ -1867,126 +1867,176 @@ body {
     }
 }
 
-/* ==================== PARTNERS SECTION STYLES ==================== */
-        .partners-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-            overflow: hidden;
-        }
+/* ==================== PARTNERS SECTION - FIXED LAYOUT ==================== */
+.partners-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+    overflow: hidden;
+}
 
-        .partners-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
+.partners-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
 
-        .partners-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 56px;
-            font-weight: 900;
-            color: #000000;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+.partners-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: #000000;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
 
-        .partners-categories {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
+/* Top Categories Row */
+.partners-categories {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
 
-        .partner-category {
-            text-align: center;
-        }
+.partner-category {
+    text-align: center;
+}
 
-        .category-label {
-            font-size: 11px;
-            font-weight: 700;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-        }
+.category-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .category-logos {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            justify-content: center;
-        }
+.category-logos {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-        /* Partners Grid Layout */
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 40px 60px;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: center;
-            justify-items: center;
-        }
+/* Partners Rows - Fixed Layout */
+.partners-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
 
-        /* Individual Partner Logo */
-        .partner-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 140px;
-            height: 80px;
-            padding: 15px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
+.partners-row:last-child {
+    margin-bottom: 0;
+}
 
-        .partner-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: grayscale(100%) brightness(0.3) opacity(0.6);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+/* Individual Partner Logo */
+.partner-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 80px;
+    padding: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    flex-shrink: 0;
+}
 
-        .partner-logo:hover {
-            transform: scale(1.15);
-        }
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.3) opacity(0.6);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .partner-logo:hover img {
-            filter: grayscale(0%) brightness(1) opacity(1);
-        }
+.partner-logo:hover {
+    transform: scale(1.15);
+}
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .partners-grid {
-                grid-template-columns: repeat(6, 1fr);
-                gap: 30px 40px;
-            }
-        }
+.partner-logo:hover img {
+    filter: grayscale(0%) brightness(1) opacity(1);
+}
 
-        @media (max-width: 768px) {
-            .partners-title {
-                font-size: 38px;
-            }
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+    .partners-row {
+        gap: 40px;
+    }
 
-            .partners-categories {
-                flex-direction: column;
-                gap: 40px;
-            }
+    .partners-categories {
+        gap: 60px;
+    }
+}
 
-            .partners-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-            }
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .partners-title {
+        font-size: 38px;
+        margin-bottom: 40px;
+    }
 
-            .partner-logo {
-                width: 100px;
-                height: 60px;
-            }
-        }
+    .partners-categories {
+        flex-direction: column;
+        gap: 50px;
+        margin-bottom: 50px;
+    }
 
-        @media (max-width: 480px) {
-            .partners-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+    .partner-category {
+        width: 100%;
+    }
+
+    .category-label {
+        font-size: 10px;
+        padding: 0 10px;
+        min-height: 40px;
+    }
+
+    .category-logos {
+        gap: 20px;
+    }
+
+    .partners-row {
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .partner-logo {
+        width: 100px;
+        height: 60px;
+        padding: 10px;
+    }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .partners-title {
+        font-size: 32px;
+    }
+
+    .partners-categories {
+        gap: 40px;
+    }
+
+    .category-label {
+        font-size: 9px;
+    }
+
+    .partners-row {
+        gap: 20px;
+    }
+
+    .partner-logo {
+        width: 80px;
+        height: 50px;
+    }
+}
