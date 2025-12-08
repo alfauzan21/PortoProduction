@@ -1491,8 +1491,28 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
+    .nav-content {
+        gap: 20px;
+        /* Jarak lebih kecil di mobile */
+    }
+
+    .logo {
+        order: 1;
+        /* Logo di tengah */
+        flex: 1;
+        justify-content: center;
+    }
+
     .hamburger {
         display: flex;
+        order: 0;
+        /* Hamburger di kiri */
+    }
+
+    .nav-buttons {
+        order: 2;
+        /* Buttons hilang di mobile, tapi siap jika diperlukan */
+        display: none;
     }
 
     .nav-menu {
@@ -1506,6 +1526,9 @@ body {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         transition: left 0.4s ease;
         gap: 0;
+        margin: 0;
+        /* Hilangkan margin di mobile */
+        justify-content: flex-start;
     }
 
     .nav-menu.active {
