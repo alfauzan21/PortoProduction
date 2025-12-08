@@ -1639,3 +1639,129 @@ body {
         min-width: 280px;
     }
 }
+
+/* ==================== CLIENTS SECTION STYLES ==================== */
+.clients-section {
+    padding: 100px 0;
+    background: var(--primary-white, #ffffff);
+    overflow: hidden;
+}
+
+.clients-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.clients-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--primary-navy, #1B4B7F);
+    margin-bottom: 20px;
+}
+
+.clients-subtitle {
+    font-size: 16px;
+    color: var(--medium-gray, #6b7280);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Logo Slider Container */
+.clients-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.clients-track {
+    display: flex;
+    gap: 60px;
+    animation: scrollLogos 40s linear infinite;
+    width: max-content;
+}
+
+.clients-track:hover {
+    animation-play-state: paused;
+}
+
+/* Individual Logo Item */
+.client-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 100px;
+    padding: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.client-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.3) opacity(0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.client-logo:hover img {
+    filter: grayscale(0%) brightness(1) opacity(1);
+    transform: scale(1.15);
+}
+
+/* Animation Keyframes */
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Gradient Fade Effect */
+.clients-slider::before,
+.clients-slider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.clients-slider::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.clients-slider::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .clients-title {
+        font-size: 38px;
+    }
+
+    .clients-subtitle {
+        font-size: 14px;
+        padding: 0 20px;
+    }
+
+    .client-logo {
+        width: 140px;
+        height: 80px;
+    }
+
+    .clients-track {
+        gap: 40px;
+    }
+}

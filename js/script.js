@@ -263,6 +263,21 @@ if (contactForm) {
     });
 }
 
+// ==================== CLIENTS SLIDER INTERACTION ====================
+const clientsTrack = document.querySelector('.clients-track');
+
+if (clientsTrack) {
+    clientsTrack.addEventListener('mouseenter', () => {
+        clientsTrack.style.animationDuration = '80s'; // Slower on hover
+    });
+    
+    clientsTrack.addEventListener('mouseleave', () => {
+        clientsTrack.style.animationDuration = '40s'; // Normal speed
+    });
+}
+
+console.log('   ✅ Clients slider animation');
+
 // ==================== CONSOLE LOG ====================
 console.log('🎬 Porto Production Website Loaded Successfully! ✨');
 console.log('📝 All features initialized:');
