@@ -287,28 +287,28 @@ const docData = {
         rating: '9.5',
         duration: '15 min',
         categories: ['Corporate', 'Event', 'Documentary', 'Business'],
-        videoSrc: 'video/video-porto.mp4'
+        videoSrc: 'assets/video/video-porto.mp4'
     },
     'Product Launch Bali': {
         year: '2024',
         rating: '9.2',
         duration: '12 min',
         categories: ['Product', 'Launch', 'Commercial', 'Lifestyle'],
-        videoSrc: 'video/video-porto.mp4'
+        videoSrc: 'assets/video/video-porto.mp4'
     },
     'Music Festival Bandung': {
         year: '2024',
         rating: '9.8',
         duration: '20 min',
         categories: ['Music', 'Festival', 'Concert', 'Live Event'],
-        videoSrc: 'video/video-porto.mp4'
+        videoSrc: 'assets/video/video-porto.mp4'
     },
     'Brand Campaign Surabaya': {
         year: '2024',
         rating: '9.0',
         duration: '10 min',
         categories: ['Brand', 'Campaign', 'Photography', 'Creative'],
-        videoSrc: 'video/video-porto.mp4'
+        videoSrc: 'assets/video/video-porto.mp4'
     }
 };
 
