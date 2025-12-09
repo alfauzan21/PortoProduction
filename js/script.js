@@ -287,7 +287,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Corporate Event",
                 year: "2024",
                 views: "15K",
-                image: "assets/img/Laurel JAFF.jpg"
+                ImageTrackList: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 2,
@@ -296,7 +296,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Wedding Photography",
                 year: "2024",
                 views: "23K",
-                image: "assets/img/Laurel JAFF.jpg"
+                imageSrc: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 3,
@@ -305,7 +305,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Product Photography",
                 year: "2024",
                 views: "18K",
-                image: "assets/img/Laurel JAFF.jpg"
+                imageSrc: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 4,
@@ -314,7 +314,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Event Coverage",
                 year: "2024",
                 views: "31K",
-                image: "assets/img/Laurel JAFF.jpg"
+                imageSrc: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 5,
@@ -323,7 +323,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Commercial Ad",
                 year: "2024",
                 views: "42K",
-                image: "assets/img/Laurel JAFF.jpg"
+                imageSrc: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 6,
