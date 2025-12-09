@@ -594,7 +594,7 @@ body {
     transform: translateY(-2px);
 }
 
-/* ==================== DOCUMENTATION SECTION ==================== */
+/* ==================== DOCUMENTATION SECTION - WITH IMAGES ==================== */
 .documentation-section {
     padding: 120px 0;
     background: var(--primary-white);
@@ -627,6 +627,22 @@ body {
     box-shadow: 0 25px 60px rgba(27, 75, 127, 0.3);
 }
 
+/* Image Styling */
+.doc-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.doc-card:hover .doc-card-image {
+    transform: scale(1.1);
+}
+
+/* Overlay Gradient */
 .doc-card::before {
     content: '';
     position: absolute;
@@ -659,7 +675,7 @@ body {
     opacity: 0.9;
 }
 
-/* ==================== PORTFOLIO SECTION ==================== */
+/* ==================== PORTFOLIO SECTION - WITH IMAGES ==================== */
 .portfolio-section {
     padding: 120px 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -703,21 +719,22 @@ body {
     z-index: 10;
 }
 
-.portfolio-image {
+/* Image Styling */
+.portfolio-item-image {
     width: 100%;
     height: 100%;
-    background: var(--card-gray);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.portfolio-icon {
-    font-size: 80px;
-    opacity: 0.3;
+.portfolio-item:hover .portfolio-item-image {
+    transform: scale(1.1);
 }
 
+/* Overlay */
 .portfolio-overlay {
     position: absolute;
     bottom: 0;
@@ -728,6 +745,7 @@ body {
     color: var(--primary-white);
     transform: translateY(100%);
     transition: transform 0.5s ease;
+    z-index: 2;
 }
 
 .portfolio-item:hover .portfolio-overlay {
@@ -746,6 +764,41 @@ body {
     opacity: 0.8;
 }
 
+/* Responsive - Documentation */
+@media (max-width: 1024px) {
+    .doc-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .portfolio-item {
+        min-width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .doc-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-card {
+        height: 400px;
+    }
+
+    .portfolio-item {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .doc-card {
+        height: 350px;
+    }
+
+    .portfolio-item {
+        min-width: 280px;
+        height: 450px;
+    }
+}
 /* ==================== COMMUNITY SECTION ==================== */
 .community-section {
     padding: 120px 0;
