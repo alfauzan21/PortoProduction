@@ -287,7 +287,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Corporate Event",
                 year: "2024",
                 views: "15K",
-                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 2,
@@ -296,7 +296,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Wedding Photography",
                 year: "2024",
                 views: "23K",
-                image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 3,
@@ -305,7 +305,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Product Photography",
                 year: "2024",
                 views: "18K",
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 4,
@@ -314,7 +314,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Event Coverage",
                 year: "2024",
                 views: "31K",
-                image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 5,
@@ -323,7 +323,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Commercial Ad",
                 year: "2024",
                 views: "42K",
-                image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 6,
@@ -332,7 +332,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Documentary Film",
                 year: "2024",
                 views: "28K",
-                image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 7,
@@ -341,7 +341,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Corporate Event",
                 year: "2024",
                 views: "12K",
-                image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 8,
@@ -350,7 +350,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Wedding Video",
                 year: "2024",
                 views: "19K",
-                image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 9,
@@ -359,7 +359,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Product Video",
                 year: "2024",
                 views: "25K",
-                image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 10,
@@ -368,7 +368,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Event Documentation",
                 year: "2024",
                 views: "16K",
-                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 11,
@@ -377,7 +377,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Commercial Production",
                 year: "2024",
                 views: "38K",
-                image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             },
             {
                 id: 12,
@@ -386,7 +386,7 @@ console.log('   ✅ Clients slider animation');
                 categoryName: "Documentary Series",
                 year: "2024",
                 views: "35K",
-                image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800"
+                image: "assets/img/Laurel JAFF.jpg"
             }
         ];
 
