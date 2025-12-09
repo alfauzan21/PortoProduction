@@ -278,194 +278,199 @@ if (clientsTrack) {
 
 console.log('   ✅ Clients slider animation');
 
+// ==================== PORTFOLIO FILTER SYSTEM ====================
 // Portfolio Data
-        const portfolioData = [
-            {
-                id: 1,
-                title: "Tech Summit 2024",
-                category: "corporate",
-                categoryName: "Corporate Event",
-                year: "2024",
-                views: "15K",
-                ImageTrackList: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 2,
-                title: "Elegant Wedding Day",
-                category: "wedding",
-                categoryName: "Wedding Photography",
-                year: "2024",
-                views: "23K",
-                imageSrc: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 3,
-                title: "Premium Product Launch",
-                category: "product",
-                categoryName: "Product Photography",
-                year: "2024",
-                views: "18K",
-                imageSrc: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 4,
-                title: "Music Festival 2024",
-                category: "event",
-                categoryName: "Event Coverage",
-                year: "2024",
-                views: "31K",
-                imageSrc: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 5,
-                title: "Brand Commercial",
-                category: "commercial",
-                categoryName: "Commercial Ad",
-                year: "2024",
-                views: "42K",
-                imageSrc: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 6,
-                title: "City Life Documentary",
-                category: "documentary",
-                categoryName: "Documentary Film",
-                year: "2024",
-                views: "28K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 7,
-                title: "Annual Conference",
-                category: "corporate",
-                categoryName: "Corporate Event",
-                year: "2024",
-                views: "12K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 8,
-                title: "Dream Wedding",
-                category: "wedding",
-                categoryName: "Wedding Video",
-                year: "2024",
-                views: "19K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 9,
-                title: "Fashion Product Line",
-                category: "product",
-                categoryName: "Product Video",
-                year: "2024",
-                views: "25K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 10,
-                title: "Food Festival",
-                category: "event",
-                categoryName: "Event Documentation",
-                year: "2024",
-                views: "16K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 11,
-                title: "TV Commercial 2024",
-                category: "commercial",
-                categoryName: "Commercial Production",
-                year: "2024",
-                views: "38K",
-                image: "assets/img/Laurel JAFF.jpg"
-            },
-            {
-                id: 12,
-                title: "Ocean Conservation",
-                category: "documentary",
-                categoryName: "Documentary Series",
-                year: "2024",
-                views: "35K",
-                image: "assets/img/Laurel JAFF.jpg"
-            }
-        ];
+const portfolioData = [
+    {
+        id: 1,
+        title: "Tech Summit 2024",
+        category: "corporate",
+        categoryName: "Corporate Event",
+        year: "2024",
+        views: "15K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 2,
+        title: "Elegant Wedding Day",
+        category: "wedding",
+        categoryName: "Wedding Photography",
+        year: "2024",
+        views: "23K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 3,
+        title: "Premium Product Launch",
+        category: "product",
+        categoryName: "Product Photography",
+        year: "2024",
+        views: "18K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 4,
+        title: "Music Festival 2024",
+        category: "event",
+        categoryName: "Event Coverage",
+        year: "2024",
+        views: "31K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 5,
+        title: "Brand Commercial",
+        category: "commercial",
+        categoryName: "Commercial Ad",
+        year: "2024",
+        views: "42K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 6,
+        title: "City Life Documentary",
+        category: "documentary",
+        categoryName: "Documentary Film",
+        year: "2024",
+        views: "28K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 7,
+        title: "Annual Conference",
+        category: "corporate",
+        categoryName: "Corporate Event",
+        year: "2024",
+        views: "12K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 8,
+        title: "Dream Wedding",
+        category: "wedding",
+        categoryName: "Wedding Video",
+        year: "2024",
+        views: "19K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 9,
+        title: "Fashion Product Line",
+        category: "product",
+        categoryName: "Product Video",
+        year: "2024",
+        views: "25K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 10,
+        title: "Food Festival",
+        category: "event",
+        categoryName: "Event Documentation",
+        year: "2024",
+        views: "16K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 11,
+        title: "TV Commercial 2024",
+        category: "commercial",
+        categoryName: "Commercial Production",
+        year: "2024",
+        views: "38K",
+        image: "assets/img/Laurel JAFF.jpg"
+    },
+    {
+        id: 12,
+        title: "Ocean Conservation",
+        category: "documentary",
+        categoryName: "Documentary Series",
+        year: "2024",
+        views: "35K",
+        image: "assets/img/Laurel JAFF.jpg"
+    }
+];
 
-        // Render Portfolio Items
-        function renderPortfolio(filter = 'all') {
-            const grid = document.getElementById('portfolioGrid');
-            const noResults = document.getElementById('noResults');
-            
-            // Filter data
-            const filteredData = filter === 'all' 
-                ? portfolioData 
-                : portfolioData.filter(item => item.category === filter);
-            
-            // Show/hide no results
-            if (filteredData.length === 0) {
-                noResults.classList.add('show');
-                grid.style.display = 'none';
-                return;
-            } else {
-                noResults.classList.remove('show');
-                grid.style.display = 'grid';
-            }
-            
-            // Clear grid
-            grid.innerHTML = '';
-            
-            // Render items with stagger animation
-            filteredData.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'portfolio-card';
-                card.style.animationDelay = `${index * 0.1}s`;
-                
-                card.innerHTML = `
-                    <div class="portfolio-image">
-                        <img src="${item.image}" alt="${item.title}">
-                        <div class="portfolio-badge">${item.categoryName}</div>
-                        <div class="portfolio-overlay"></div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3 class="portfolio-title">${item.title}</h3>
-                        <p class="portfolio-category">${item.categoryName}</p>
-                        <div class="portfolio-meta">
-                            <span><i class="fas fa-calendar"></i> ${item.year}</span>
-                            <span><i class="fas fa-eye"></i> ${item.views} views</span>
-                        </div>
-                    </div>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
-
-        // Filter Button Handler
-        const filterButtons = document.querySelectorAll('.filter-btn');
+// Render Portfolio Items
+function renderPortfolio(filter = 'all') {
+    const grid = document.getElementById('portfolioGrid');
+    const noResults = document.getElementById('noResults');
+    
+    if (!grid) {
+        console.error('Portfolio grid not found');
+        return;
+    }
+    
+    // Filter data
+    const filteredData = filter === 'all' 
+        ? portfolioData 
+        : portfolioData.filter(item => item.category === filter);
+    
+    // Show/hide no results
+    if (filteredData.length === 0) {
+        noResults.classList.add('show');
+        grid.style.display = 'none';
+        return;
+    } else {
+        noResults.classList.remove('show');
+        grid.style.display = 'grid';
+    }
+    
+    // Clear grid
+    grid.innerHTML = '';
+    
+    // Render items with stagger animation
+    filteredData.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'portfolio-card';
+        card.style.animationDelay = `${index * 0.1}s`;
         
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(b => b.classList.remove('active'));
-                
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                // Get filter value
-                const filter = btn.getAttribute('data-filter');
-                
-                // Render portfolio
-                renderPortfolio(filter);
-            });
-        });
+        card.innerHTML = `
+            <div class="portfolio-image">
+                <img src="${item.image}" alt="${item.title}">
+                <div class="portfolio-badge">${item.categoryName}</div>
+                <div class="portfolio-overlay"></div>
+            </div>
+            <div class="portfolio-info">
+                <h3 class="portfolio-title">${item.title}</h3>
+                <p class="portfolio-category">${item.categoryName}</p>
+                <div class="portfolio-meta">
+                    <span><i class="fas fa-calendar"></i> ${item.year}</span>
+                    <span><i class="fas fa-eye"></i> ${item.views} views</span>
+                </div>
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    });
+}
 
-        // Initial render
-        renderPortfolio('all');
+// Filter Button Handler
+const filterButtons = document.querySelectorAll('.filter-btn');
 
-        console.log('✅ Portfolio Filter System Initialized');
-        console.log(`📊 Total Projects: ${portfolioData.length}`);
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterButtons.forEach(b => b.classList.remove('active'));
+        
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // Get filter value
+        const filter = btn.getAttribute('data-filter');
+        
+        // Render portfolio
+        renderPortfolio(filter);
+    });
+});
 
-// ==================== DOCUMENTATION MODAL FUNCTIONS =====================
+// Initial render
+renderPortfolio('all');
 
+console.log('✅ Portfolio Filter System Initialized');
+console.log(`📊 Total Projects: ${portfolioData.length}`);
+
+/// ==================== DOCUMENTATION MODAL FUNCTIONS ====================
 // Data for each documentation
 const docData = {
     'Corporate Event 2024': {
@@ -508,6 +513,11 @@ function openDocModal(title, synopsis, director, writers, location) {
     const modalLocation = document.getElementById('modalLocation');
     const modalVideo = document.getElementById('modalVideo');
     
+    if (!modal) {
+        console.error('Modal element not found');
+        return;
+    }
+    
     // Get data
     const data = docData[title] || docData['Corporate Event 2024'];
     
@@ -518,7 +528,7 @@ function openDocModal(title, synopsis, director, writers, location) {
     modalWriters.textContent = writers;
     modalLocation.textContent = location;
     
-    // Update badges with proper icon structure
+    // Update badges
     document.getElementById('badgeYear').textContent = data.year;
     document.getElementById('badgeRating').textContent = data.rating;
     document.getElementById('badgeDuration').textContent = data.duration;
@@ -542,6 +552,8 @@ function openDocModal(title, synopsis, director, writers, location) {
 function closeDocModal() {
     const modal = document.getElementById('docModal');
     const modalVideo = document.getElementById('modalVideo');
+    
+    if (!modal) return;
     
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
@@ -580,7 +592,13 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-console.log('   ✅ Premium documentation modal initialized');
+// Make functions globally accessible
+window.openDocModal = openDocModal;
+window.closeDocModal = closeDocModal;
+window.readMoreDoc = readMoreDoc;
+window.addToWatchlist = addToWatchlist;
+
+console.log('✅ Documentation Modal System Initialized');
 
 
 
