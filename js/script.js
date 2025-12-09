@@ -332,13 +332,13 @@ function openDocModal(title, synopsis, director, writers, location) {
     modalWriters.textContent = writers;
     modalLocation.textContent = location;
     
-    // Update badges
-    document.querySelector('.modal-badge.year').textContent = data.year;
-    document.querySelector('.modal-badge.rating').textContent = `⭐ ${data.rating}`;
-    document.querySelector('.modal-badge.duration').textContent = `🎬 ${data.duration}`;
+    // Update badges with proper icon structure
+    document.getElementById('badgeYear').textContent = data.year;
+    document.getElementById('badgeRating').textContent = data.rating;
+    document.getElementById('badgeDuration').textContent = data.duration;
     
     // Update categories
-    const categoriesContainer = document.querySelector('.modal-categories');
+    const categoriesContainer = document.getElementById('modalCategories');
     categoriesContainer.innerHTML = data.categories
         .map(cat => `<span class="modal-category">${cat}</span>`)
         .join('');
@@ -365,12 +365,13 @@ function closeDocModal() {
 
 // Read More
 function readMoreDoc() {
-    alert('Read More clicked!');
+    alert('Read More clicked! This would navigate to detailed documentation page.');
 }
 
 // Watchlist
 function addToWatchlist() {
-    alert('Added to Watchlist! ✓');
+    const title = document.getElementById('modalTitle').textContent;
+    alert(`"${title}" added to Watchlist! ✓`);
 }
 
 // Click outside to close
@@ -393,7 +394,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-console.log('   ✅ Documentation modal initialized');
+console.log('   ✅ Premium documentation modal initialized');
 
 // ==================== CONSOLE LOG ====================
 console.log('🎬 Porto Production Website Loaded Successfully! ✨');

@@ -9,6 +9,8 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -154,7 +156,7 @@
             <div class="doc-cards">
                 <div class="doc-card"
                     onclick="openDocModal('Corporate Event 2024', 'A comprehensive documentation of our corporate event held in Jakarta. This event showcased the latest innovations in production technology and creative storytelling techniques.', 'Porto Production Team', 'Creative Team', 'Jakarta Convention Center')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 1" class="doc-card-image">
+                    <img src="assets/img/Laurel JAFF.tiff" alt="Documentation 1" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Corporate Event</h3>
                         <p class="doc-card-subtitle">Jakarta 2024</p>
@@ -163,7 +165,7 @@
     
                 <div class="doc-card"
                     onclick="openDocModal('Product Launch Bali', 'An exclusive product launch event captured in the beautiful island of Bali. Featuring stunning cinematography and compelling brand storytelling.', 'Michael Anderson', 'Sarah Johnson, Mike Chen', 'Bali Seminyak')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 2" class="doc-card-image">
+                    <img src="assets/img/Laurel JAFF.tiff" alt="Documentation 2" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Product Launch</h3>
                         <p class="doc-card-subtitle">Bali 2024</p>
@@ -172,7 +174,7 @@
     
                 <div class="doc-card"
                     onclick="openDocModal('Music Festival Bandung', 'A three-day music festival documentation featuring local and international artists. Captured with multi-camera setup and drone cinematography.', 'David Lee', 'Porto Creative Studio', 'Trans Studio Bandung')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 3" class="doc-card-image">
+                    <img src="assets/img/Laurel JAFF.tiff" alt="Documentation 3" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Music Festival</h3>
                         <p class="doc-card-subtitle">Bandung 2024</p>
@@ -181,7 +183,7 @@
     
                 <div class="doc-card"
                     onclick="openDocModal('Brand Campaign Surabaya', 'A creative brand campaign shoot in Surabaya featuring lifestyle and product photography. Showcasing modern urban aesthetics and innovative compositions.', 'Lisa Williams', 'Brand Team', 'Surabaya City Center')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 4" class="doc-card-image">
+                    <img src="assets/img/Laurel JAFF.tiff" alt="Documentation 4" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Brand Campaign</h3>
                         <p class="doc-card-subtitle">Surabaya 2024</p>
@@ -673,16 +675,20 @@
     <!-- Modal Popup -->
     <div class="modal-overlay" id="docModal">
         <div class="modal-container">
-            <div class="modal-close" onclick="closeDocModal()">×</div>
+            <div class="modal-close" onclick="closeDocModal()">
+                <i class="fas fa-times"></i>
+            </div>
     
             <div class="modal-content">
                 <!-- Video Section -->
                 <div class="modal-video-section">
-                    <div class="modal-video-wrapper">
-                        <video id="modalVideo" controls>
-                            <source src="assets/video/video-porto.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    <div class="modal-video-frame">
+                        <div class="modal-video-wrapper">
+                            <video id="modalVideo" controls>
+                                <source src="assets/video/video-porto.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
     
@@ -692,12 +698,21 @@
                         <h2 class="modal-title" id="modalTitle">Corporate Event Documentation</h2>
     
                         <div class="modal-meta">
-                            <span class="modal-badge year">2024</span>
-                            <span class="modal-badge rating">⭐ 9.5</span>
-                            <span class="modal-badge duration">🎬 15 min</span>
+                            <span class="modal-badge year">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="badgeYear">2024</span>
+                            </span>
+                            <span class="modal-badge rating">
+                                <i class="fas fa-star"></i>
+                                <span id="badgeRating">9.5</span>
+                            </span>
+                            <span class="modal-badge duration">
+                                <i class="fas fa-clock"></i>
+                                <span id="badgeDuration">15 min</span>
+                            </span>
                         </div>
     
-                        <div class="modal-categories">
+                        <div class="modal-categories" id="modalCategories">
                             <span class="modal-category">Film/Mystery</span>
                             <span class="modal-category">Action</span>
                             <span class="modal-category">Adventure</span>
@@ -707,41 +722,50 @@
                         <div class="modal-synopsis">
                             <div class="modal-synopsis-label">Synopsis</div>
                             <p class="modal-synopsis-text" id="modalSynopsis">
-                                Set more than a decade after the events of the first film, "Avatar: The Way of Water"
-                                begins to tell the story of the Sully family, the trouble that follows them, the lengths
-                                they go to keep each other safe, the battles they fight to stay alive, and the tragedies
-                                they endure.
+                                Default synopsis text will be replaced dynamically.
                             </p>
                         </div>
     
                         <div class="modal-details">
                             <div class="modal-detail-item">
-                                <span class="modal-detail-label">Director:</span>
-                                <span class="modal-detail-value" id="modalDirector">James Cameron</span>
+                                <i class="fas fa-film"></i>
+                                <div class="modal-detail-content">
+                                    <div class="modal-detail-label">Director</div>
+                                    <div class="modal-detail-value" id="modalDirector">-</div>
+                                </div>
                             </div>
                             <div class="modal-detail-item">
-                                <span class="modal-detail-label">Writers:</span>
-                                <span class="modal-detail-value" id="modalWriters">Rick Jaffa, Amanda Silver</span>
+                                <i class="fas fa-pen-fancy"></i>
+                                <div class="modal-detail-content">
+                                    <div class="modal-detail-label">Writers</div>
+                                    <div class="modal-detail-value" id="modalWriters">-</div>
+                                </div>
                             </div>
                             <div class="modal-detail-item">
-                                <span class="modal-detail-label">Location:</span>
-                                <span class="modal-detail-value" id="modalLocation">Jakarta, Indonesia</span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="modal-detail-content">
+                                    <div class="modal-detail-label">Location</div>
+                                    <div class="modal-detail-value" id="modalLocation">-</div>
+                                </div>
                             </div>
                         </div>
                     </div>
     
                     <div class="modal-buttons">
                         <button class="modal-btn modal-btn-primary" onclick="readMoreDoc()">
-                            📖 Read More
+                            <i class="fas fa-book-open"></i>
+                            Read More
                         </button>
                         <button class="modal-btn modal-btn-secondary" onclick="addToWatchlist()">
-                            + Watchlist
+                            <i class="fas fa-plus"></i>
+                            Watchlist
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="js/script.js"></script>
 </body>
