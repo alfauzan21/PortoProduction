@@ -396,6 +396,192 @@ document.addEventListener('keydown', function(e) {
 
 console.log('   ✅ Premium documentation modal initialized');
 
+// Portfolio Data
+        const portfolioData = [
+            {
+                id: 1,
+                title: "Tech Summit 2024",
+                category: "corporate",
+                categoryName: "Corporate Event",
+                year: "2024",
+                views: "15K",
+                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800"
+            },
+            {
+                id: 2,
+                title: "Elegant Wedding Day",
+                category: "wedding",
+                categoryName: "Wedding Photography",
+                year: "2024",
+                views: "23K",
+                image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800"
+            },
+            {
+                id: 3,
+                title: "Premium Product Launch",
+                category: "product",
+                categoryName: "Product Photography",
+                year: "2024",
+                views: "18K",
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
+            },
+            {
+                id: 4,
+                title: "Music Festival 2024",
+                category: "event",
+                categoryName: "Event Coverage",
+                year: "2024",
+                views: "31K",
+                image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800"
+            },
+            {
+                id: 5,
+                title: "Brand Commercial",
+                category: "commercial",
+                categoryName: "Commercial Ad",
+                year: "2024",
+                views: "42K",
+                image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800"
+            },
+            {
+                id: 6,
+                title: "City Life Documentary",
+                category: "documentary",
+                categoryName: "Documentary Film",
+                year: "2024",
+                views: "28K",
+                image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800"
+            },
+            {
+                id: 7,
+                title: "Annual Conference",
+                category: "corporate",
+                categoryName: "Corporate Event",
+                year: "2024",
+                views: "12K",
+                image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
+            },
+            {
+                id: 8,
+                title: "Dream Wedding",
+                category: "wedding",
+                categoryName: "Wedding Video",
+                year: "2024",
+                views: "19K",
+                image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800"
+            },
+            {
+                id: 9,
+                title: "Fashion Product Line",
+                category: "product",
+                categoryName: "Product Video",
+                year: "2024",
+                views: "25K",
+                image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
+            },
+            {
+                id: 10,
+                title: "Food Festival",
+                category: "event",
+                categoryName: "Event Documentation",
+                year: "2024",
+                views: "16K",
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800"
+            },
+            {
+                id: 11,
+                title: "TV Commercial 2024",
+                category: "commercial",
+                categoryName: "Commercial Production",
+                year: "2024",
+                views: "38K",
+                image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800"
+            },
+            {
+                id: 12,
+                title: "Ocean Conservation",
+                category: "documentary",
+                categoryName: "Documentary Series",
+                year: "2024",
+                views: "35K",
+                image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800"
+            }
+        ];
+
+        // Render Portfolio Items
+        function renderPortfolio(filter = 'all') {
+            const grid = document.getElementById('portfolioGrid');
+            const noResults = document.getElementById('noResults');
+            
+            // Filter data
+            const filteredData = filter === 'all' 
+                ? portfolioData 
+                : portfolioData.filter(item => item.category === filter);
+            
+            // Show/hide no results
+            if (filteredData.length === 0) {
+                noResults.classList.add('show');
+                grid.style.display = 'none';
+                return;
+            } else {
+                noResults.classList.remove('show');
+                grid.style.display = 'grid';
+            }
+            
+            // Clear grid
+            grid.innerHTML = '';
+            
+            // Render items with stagger animation
+            filteredData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'portfolio-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                card.innerHTML = `
+                    <div class="portfolio-image">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div class="portfolio-badge">${item.categoryName}</div>
+                        <div class="portfolio-overlay"></div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">${item.title}</h3>
+                        <p class="portfolio-category">${item.categoryName}</p>
+                        <div class="portfolio-meta">
+                            <span><i class="fas fa-calendar"></i> ${item.year}</span>
+                            <span><i class="fas fa-eye"></i> ${item.views} views</span>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Button Handler
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Get filter value
+                const filter = btn.getAttribute('data-filter');
+                
+                // Render portfolio
+                renderPortfolio(filter);
+            });
+        });
+
+        // Initial render
+        renderPortfolio('all');
+
+        console.log('✅ Portfolio Filter System Initialized');
+        console.log(`📊 Total Projects: ${portfolioData.length}`);
+
 // ==================== CONSOLE LOG ====================
 console.log('🎬 Porto Production Website Loaded Successfully! ✨');
 console.log('📝 All features initialized:');

@@ -193,76 +193,58 @@
         </div>
     </section>
     
-    <!-- Portfolio Section -->
-    <section class="portfolio-section" id="portfolio">
+    <!-- Portfolio Filter Section -->
+    <section class="portfolio-filter-section">
         <div class="container">
             <h2 class="section-title">Our Portfolio</h2>
-            <div class="portfolio-slider" id="portfolioSlider">
-                <div class="portfolio-track" id="portfolioTrack">
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 1" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-video"></i>
-                            </div>
-                            <h3 class="portfolio-title">Corporate Video</h3>
-                            <p class="portfolio-category">Video Production</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 2" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-camera"></i>
-                            </div>
-                            <h3 class="portfolio-title">Brand Photography</h3>
-                            <p class="portfolio-category">Photography</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 3" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-film"></i>
-                            </div>
-                            <h3 class="portfolio-title">Commercial Ad</h3>
-                            <p class="portfolio-category">Post Production</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 4" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-box"></i>
-                            </div>
-                            <h3 class="portfolio-title">Product Showcase</h3>
-                            <p class="portfolio-category">Video Production</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 5" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <h3 class="portfolio-title">Event Coverage</h3>
-                            <p class="portfolio-category">Photography</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="assets/img/Laurel JAFF.tiff" alt="Portfolio 6" class="portfolio-item-image">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-icon">
-                                <i class="fas fa-file-video"></i>
-                            </div>
-                            <h3 class="portfolio-title">Documentary Film</h3>
-                            <p class="portfolio-category">Post Production</p>
-                        </div>
-                    </div>
-                </div>
+            <p class="section-subtitle">Discover our creative works across different categories</p>
+    
+            <!-- Filter Buttons -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    All Projects
+                </button>
+                <button class="filter-btn" data-filter="corporate">
+                    <i class="fas fa-building"></i>
+                    Corporate
+                </button>
+                <button class="filter-btn" data-filter="wedding">
+                    <i class="fas fa-heart"></i>
+                    Wedding
+                </button>
+                <button class="filter-btn" data-filter="product">
+                    <i class="fas fa-box"></i>
+                    Product
+                </button>
+                <button class="filter-btn" data-filter="event">
+                    <i class="fas fa-calendar-check"></i>
+                    Event
+                </button>
+                <button class="filter-btn" data-filter="commercial">
+                    <i class="fas fa-ad"></i>
+                    Commercial
+                </button>
+                <button class="filter-btn" data-filter="documentary">
+                    <i class="fas fa-film"></i>
+                    Documentary
+                </button>
+            </div>
+    
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Portfolio Items will be injected by JavaScript -->
+            </div>
+    
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search"></i>
+                <h3>No projects found</h3>
+                <p>Try selecting a different category</p>
             </div>
         </div>
     </section>
+
 
     <section class="community-section" id="community">
         <div class="container">
@@ -724,13 +706,14 @@
     </section>
     
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo-section">
-                    <div class="footer-logo-text">PORTO</div>
-                    <p class="footer-description">Professional production studio delivering excellence in video
-                        production, photography, and post-production services.</p>
+                    <img src="assets/img/LOGO PORTO - WHITE.png" alt="Porto Production" class="footer-logo">
+                    <p class="footer-description">Professional production studio delivering excellence in video production,
+                        photography, and post-production services.</p>
                     <div class="footer-social">
                         <a href="#" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
