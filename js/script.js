@@ -278,124 +278,6 @@ if (clientsTrack) {
 
 console.log('   ✅ Clients slider animation');
 
-// ==================== DOCUMENTATION MODAL FUNCTIONS =====================
-
-// Data for each documentation
-const docData = {
-    'Corporate Event 2024': {
-        year: '2024',
-        rating: '9.5',
-        duration: '15 min',
-        categories: ['Corporate', 'Event', 'Documentary', 'Business'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Product Launch Bali': {
-        year: '2024',
-        rating: '9.2',
-        duration: '12 min',
-        categories: ['Product', 'Launch', 'Commercial', 'Lifestyle'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Music Festival Bandung': {
-        year: '2024',
-        rating: '9.8',
-        duration: '20 min',
-        categories: ['Music', 'Festival', 'Concert', 'Live Event'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Brand Campaign Surabaya': {
-        year: '2024',
-        rating: '9.0',
-        duration: '10 min',
-        categories: ['Brand', 'Campaign', 'Photography', 'Creative'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    }
-};
-
-// Open Modal Function
-function openDocModal(title, synopsis, director, writers, location) {
-    const modal = document.getElementById('docModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSynopsis = document.getElementById('modalSynopsis');
-    const modalDirector = document.getElementById('modalDirector');
-    const modalWriters = document.getElementById('modalWriters');
-    const modalLocation = document.getElementById('modalLocation');
-    const modalVideo = document.getElementById('modalVideo');
-    
-    // Get data
-    const data = docData[title] || docData['Corporate Event 2024'];
-    
-    // Update content
-    modalTitle.textContent = title;
-    modalSynopsis.textContent = synopsis;
-    modalDirector.textContent = director;
-    modalWriters.textContent = writers;
-    modalLocation.textContent = location;
-    
-    // Update badges with proper icon structure
-    document.getElementById('badgeYear').textContent = data.year;
-    document.getElementById('badgeRating').textContent = data.rating;
-    document.getElementById('badgeDuration').textContent = data.duration;
-    
-    // Update categories
-    const categoriesContainer = document.getElementById('modalCategories');
-    categoriesContainer.innerHTML = data.categories
-        .map(cat => `<span class="modal-category">${cat}</span>`)
-        .join('');
-    
-    // Update video
-    modalVideo.src = data.videoSrc;
-    
-    // Show modal
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    modalVideo.play();
-}
-
-// Close Modal
-function closeDocModal() {
-    const modal = document.getElementById('docModal');
-    const modalVideo = document.getElementById('modalVideo');
-    
-    modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
-}
-
-// Read More
-function readMoreDoc() {
-    alert('Read More clicked! This would navigate to detailed documentation page.');
-}
-
-// Watchlist
-function addToWatchlist() {
-    const title = document.getElementById('modalTitle').textContent;
-    alert(`"${title}" added to Watchlist! ✓`);
-}
-
-// Click outside to close
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('docModal');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) closeDocModal();
-        });
-    }
-});
-
-// Escape key to close
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('docModal');
-        if (modal && modal.classList.contains('active')) {
-            closeDocModal();
-        }
-    }
-});
-
-console.log('   ✅ Premium documentation modal initialized');
-
 // Portfolio Data
         const portfolioData = [
             {
@@ -581,6 +463,126 @@ console.log('   ✅ Premium documentation modal initialized');
 
         console.log('✅ Portfolio Filter System Initialized');
         console.log(`📊 Total Projects: ${portfolioData.length}`);
+
+// ==================== DOCUMENTATION MODAL FUNCTIONS =====================
+
+// Data for each documentation
+const docData = {
+    'Corporate Event 2024': {
+        year: '2024',
+        rating: '9.5',
+        duration: '15 min',
+        categories: ['Corporate', 'Event', 'Documentary', 'Business'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'Product Launch Bali': {
+        year: '2024',
+        rating: '9.2',
+        duration: '12 min',
+        categories: ['Product', 'Launch', 'Commercial', 'Lifestyle'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'Music Festival Bandung': {
+        year: '2024',
+        rating: '9.8',
+        duration: '20 min',
+        categories: ['Music', 'Festival', 'Concert', 'Live Event'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'Brand Campaign Surabaya': {
+        year: '2024',
+        rating: '9.0',
+        duration: '10 min',
+        categories: ['Brand', 'Campaign', 'Photography', 'Creative'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    }
+};
+
+// Open Modal Function
+function openDocModal(title, synopsis, director, writers, location) {
+    const modal = document.getElementById('docModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSynopsis = document.getElementById('modalSynopsis');
+    const modalDirector = document.getElementById('modalDirector');
+    const modalWriters = document.getElementById('modalWriters');
+    const modalLocation = document.getElementById('modalLocation');
+    const modalVideo = document.getElementById('modalVideo');
+    
+    // Get data
+    const data = docData[title] || docData['Corporate Event 2024'];
+    
+    // Update content
+    modalTitle.textContent = title;
+    modalSynopsis.textContent = synopsis;
+    modalDirector.textContent = director;
+    modalWriters.textContent = writers;
+    modalLocation.textContent = location;
+    
+    // Update badges with proper icon structure
+    document.getElementById('badgeYear').textContent = data.year;
+    document.getElementById('badgeRating').textContent = data.rating;
+    document.getElementById('badgeDuration').textContent = data.duration;
+    
+    // Update categories
+    const categoriesContainer = document.getElementById('modalCategories');
+    categoriesContainer.innerHTML = data.categories
+        .map(cat => `<span class="modal-category">${cat}</span>`)
+        .join('');
+    
+    // Update video
+    modalVideo.src = data.videoSrc;
+    
+    // Show modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    modalVideo.play();
+}
+
+// Close Modal
+function closeDocModal() {
+    const modal = document.getElementById('docModal');
+    const modalVideo = document.getElementById('modalVideo');
+    
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+}
+
+// Read More
+function readMoreDoc() {
+    alert('Read More clicked! This would navigate to detailed documentation page.');
+}
+
+// Watchlist
+function addToWatchlist() {
+    const title = document.getElementById('modalTitle').textContent;
+    alert(`"${title}" added to Watchlist! ✓`);
+}
+
+// Click outside to close
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('docModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeDocModal();
+        });
+    }
+});
+
+// Escape key to close
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('docModal');
+        if (modal && modal.classList.contains('active')) {
+            closeDocModal();
+        }
+    }
+});
+
+console.log('   ✅ Premium documentation modal initialized');
+
+
 
 // ==================== CONSOLE LOG ====================
 console.log('🎬 Porto Production Website Loaded Successfully! ✨');
