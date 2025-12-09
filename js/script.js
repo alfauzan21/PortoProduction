@@ -278,7 +278,7 @@ if (clientsTrack) {
 
 console.log('   ✅ Clients slider animation');
 
-// ==================== DOCUMENTATION MODAL FUNCTIONS ====================
+// ==================== DOCUMENTATION MODAL FUNCTIONS =====================
 
 // Data for each documentation
 const docData = {
