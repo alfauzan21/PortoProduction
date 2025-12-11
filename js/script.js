@@ -14,30 +14,36 @@ window.addEventListener('scroll', () => {
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    
-    const spans = hamburger.querySelectorAll('span');
-    if (navMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
-    } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-    }
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        
+        const spans = hamburger.querySelectorAll('span');
+        if (navMenu.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(8px, -8px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+}
 
 // ==================== CLOSE MENU WHEN CLICKING NAV LINKS ====================
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        
-        const spans = hamburger.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
+        if (navMenu) {
+            navMenu.classList.remove('active');
+            
+            if (hamburger) {
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        }
     });
 });
 
@@ -98,85 +104,11 @@ document.querySelectorAll('.service-card, .doc-card, .team-card').forEach(card =
     observer.observe(card);
 });
 
-// ==================== PORTFOLIO SLIDER WITH MOUSE DRAG & TOUCH SUPPORT ====================
-const portfolioSlider = document.getElementById('portfolioSlider');
-const portfolioTrack = document.getElementById('portfolioTrack');
-let isDown = false;
-let startX;
-let scrollLeft;
-
-// Mouse drag functionality
-portfolioSlider.addEventListener('mousedown', (e) => {
-    isDown = true;
-    portfolioSlider.classList.add('grabbing');
-    startX = e.pageX - portfolioSlider.offsetLeft;
-    scrollLeft = portfolioTrack.style.transform ? 
-        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
-});
-
-portfolioSlider.addEventListener('mouseleave', () => {
-    isDown = false;
-    portfolioSlider.classList.remove('grabbing');
-});
-
-portfolioSlider.addEventListener('mouseup', () => {
-    isDown = false;
-    portfolioSlider.classList.remove('grabbing');
-});
-
-portfolioSlider.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - portfolioSlider.offsetLeft;
-    const walk = (x - startX) * 2;
-    const newPosition = scrollLeft + walk;
-    
-    // Limit scrolling
-    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
-    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
-    
-    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
-});
-
-// Touch support for mobile
-let touchStartX = 0;
-let touchScrollLeft = 0;
-
-portfolioSlider.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].pageX;
-    touchScrollLeft = portfolioTrack.style.transform ? 
-        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
-});
-
-portfolioSlider.addEventListener('touchmove', (e) => {
-    const x = e.touches[0].pageX;
-    const walk = (x - touchStartX) * 2;
-    const newPosition = touchScrollLeft + walk;
-    
-    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
-    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
-    
-    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
-});
-
-// Mouse wheel horizontal scroll
-portfolioSlider.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const currentTransform = portfolioTrack.style.transform ? 
-        parseInt(portfolioTrack.style.transform.replace('translateX(', '').replace('px)', '')) : 0;
-    
-    const newPosition = currentTransform - (e.deltaY * 2);
-    const maxScroll = -(portfolioTrack.scrollWidth - portfolioSlider.offsetWidth);
-    const limitedPosition = Math.max(Math.min(newPosition, 0), maxScroll);
-    
-    portfolioTrack.style.transform = `translateX(${limitedPosition}px)`;
-}, { passive: false });
-
 // ==================== FILE UPLOAD DISPLAY ====================
 const fileInput = document.getElementById('fileInput');
 const fileName = document.getElementById('fileName');
 
-if (fileInput) {
+if (fileInput && fileName) {
     fileInput.addEventListener('change', (e) => {
         if (e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -195,7 +127,7 @@ const contactForm = document.getElementById('contactForm');
 const submissionResult = document.getElementById('submissionResult');
 const resultBody = document.getElementById('resultBody');
 
-if (contactForm) {
+if (contactForm && submissionResult && resultBody) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -206,7 +138,7 @@ if (contactForm) {
         const fullname = formData.get('fullname');
         const email = formData.get('email');
         const details = formData.get('details');
-        const file = fileInput.files[0];
+        const file = fileInput ? fileInput.files[0] : null;
         
         // Build result HTML
         let resultHTML = `
@@ -253,8 +185,10 @@ if (contactForm) {
         
         // Reset form
         contactForm.reset();
-        fileName.textContent = '';
-        fileName.classList.remove('active');
+        if (fileName) {
+            fileName.textContent = '';
+            fileName.classList.remove('active');
+        }
         
         // Optional: Hide result after 10 seconds
         setTimeout(() => {
@@ -268,15 +202,13 @@ const clientsTrack = document.querySelector('.clients-track');
 
 if (clientsTrack) {
     clientsTrack.addEventListener('mouseenter', () => {
-        clientsTrack.style.animationDuration = '80s'; // Slower on hover
+        clientsTrack.style.animationDuration = '80s';
     });
     
     clientsTrack.addEventListener('mouseleave', () => {
-        clientsTrack.style.animationDuration = '40s'; // Normal speed
+        clientsTrack.style.animationDuration = '40s';
     });
 }
-
-console.log('   ✅ Clients slider animation');
 
 // ==================== PORTFOLIO FILTER SYSTEM ====================
 // Portfolio Data
@@ -391,7 +323,59 @@ const portfolioData = [
     }
 ];
 
-// Render Portfolio Items
+// ==================== DOCUMENTATION DATA - DECLARE FIRST ====================
+const docData = {
+    'corporate': {
+        title: 'Corporate Event 2024',
+        synopsis: 'A comprehensive documentation of our corporate event held in Jakarta. This event showcased the latest innovations in production technology and creative storytelling techniques.',
+        director: 'Porto Production Team',
+        writers: 'Creative Team',
+        location: 'Jakarta Convention Center',
+        year: '2024',
+        rating: '9.5',
+        duration: '15 min',
+        categories: ['Corporate', 'Event', 'Documentary', 'Business'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'product': {
+        title: 'Product Launch Bali',
+        synopsis: 'An exclusive product launch event captured in the beautiful island of Bali. Featuring stunning cinematography and compelling brand storytelling.',
+        director: 'Michael Anderson',
+        writers: 'Sarah Johnson, Mike Chen',
+        location: 'Bali Seminyak',
+        year: '2024',
+        rating: '9.2',
+        duration: '12 min',
+        categories: ['Product', 'Launch', 'Commercial', 'Lifestyle'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'music': {
+        title: 'Music Festival Bandung',
+        synopsis: 'A three-day music festival documentation featuring local and international artists. Captured with multi-camera setup and drone cinematography.',
+        director: 'David Lee',
+        writers: 'Porto Creative Studio',
+        location: 'Trans Studio Bandung',
+        year: '2024',
+        rating: '9.8',
+        duration: '20 min',
+        categories: ['Music', 'Festival', 'Concert', 'Live Event'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    },
+    'brand': {
+        title: 'Brand Campaign Surabaya',
+        synopsis: 'A creative brand campaign shoot in Surabaya featuring lifestyle and product photography. Showcasing modern urban aesthetics and innovative compositions.',
+        director: 'Lisa Williams',
+        writers: 'Brand Team',
+        location: 'Surabaya City Center',
+        year: '2024',
+        rating: '9.0',
+        duration: '10 min',
+        categories: ['Brand', 'Campaign', 'Photography', 'Creative'],
+        videoSrc: 'assets/video/video-porto.mp4'
+    }
+};
+
+// ==================== RENDER PORTFOLIO ====================
 function renderPortfolio(filter = 'all') {
     const grid = document.getElementById('portfolioGrid');
     const noResults = document.getElementById('noResults');
@@ -407,13 +391,15 @@ function renderPortfolio(filter = 'all') {
         : portfolioData.filter(item => item.category === filter);
     
     // Show/hide no results
-    if (filteredData.length === 0) {
-        noResults.classList.add('show');
-        grid.style.display = 'none';
-        return;
-    } else {
-        noResults.classList.remove('show');
-        grid.style.display = 'grid';
+    if (noResults) {
+        if (filteredData.length === 0) {
+            noResults.classList.add('show');
+            grid.style.display = 'none';
+            return;
+        } else {
+            noResults.classList.remove('show');
+            grid.style.display = 'grid';
+        }
     }
     
     // Clear grid
@@ -445,7 +431,7 @@ function renderPortfolio(filter = 'all') {
     });
 }
 
-// Filter Button Handler
+// ==================== FILTER BUTTON HANDLER ====================
 const filterButtons = document.querySelectorAll('.filter-btn');
 
 filterButtons.forEach(btn => {
@@ -464,47 +450,9 @@ filterButtons.forEach(btn => {
     });
 });
 
-// Initial render
-renderPortfolio('all');
-
-console.log('✅ Portfolio Filter System Initialized');
-console.log(`📊 Total Projects: ${portfolioData.length}`);
-
-/// ==================== DOCUMENTATION MODAL FUNCTIONS ====================
-// Data for each documentation
-const docData = {
-    'Corporate Event 2024': {
-        year: '2024',
-        rating: '9.5',
-        duration: '15 min',
-        categories: ['Corporate', 'Event', 'Documentary', 'Business'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Product Launch Bali': {
-        year: '2024',
-        rating: '9.2',
-        duration: '12 min',
-        categories: ['Product', 'Launch', 'Commercial', 'Lifestyle'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Music Festival Bandung': {
-        year: '2024',
-        rating: '9.8',
-        duration: '20 min',
-        categories: ['Music', 'Festival', 'Concert', 'Live Event'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    },
-    'Brand Campaign Surabaya': {
-        year: '2024',
-        rating: '9.0',
-        duration: '10 min',
-        categories: ['Brand', 'Campaign', 'Photography', 'Creative'],
-        videoSrc: 'assets/video/video-porto.mp4'
-    }
-};
-
+// ==================== DOCUMENTATION MODAL FUNCTIONS ====================
 // Open Modal Function
-function openDocModal(title, synopsis, director, writers, location) {
+function openDocModal(docKey) {
     const modal = document.getElementById('docModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalSynopsis = document.getElementById('modalSynopsis');
@@ -519,33 +467,48 @@ function openDocModal(title, synopsis, director, writers, location) {
     }
     
     // Get data
-    const data = docData[title] || docData['Corporate Event 2024'];
+    const data = docData[docKey] || docData['corporate'];
+    
+    if (!data) {
+        console.error('No data found for key:', docKey);
+        return;
+    }
     
     // Update content
-    modalTitle.textContent = title;
-    modalSynopsis.textContent = synopsis;
-    modalDirector.textContent = director;
-    modalWriters.textContent = writers;
-    modalLocation.textContent = location;
+    if (modalTitle) modalTitle.textContent = data.title;
+    if (modalSynopsis) modalSynopsis.textContent = data.synopsis;
+    if (modalDirector) modalDirector.textContent = data.director;
+    if (modalWriters) modalWriters.textContent = data.writers;
+    if (modalLocation) modalLocation.textContent = data.location;
     
     // Update badges
-    document.getElementById('badgeYear').textContent = data.year;
-    document.getElementById('badgeRating').textContent = data.rating;
-    document.getElementById('badgeDuration').textContent = data.duration;
+    const badgeYear = document.getElementById('badgeYear');
+    const badgeRating = document.getElementById('badgeRating');
+    const badgeDuration = document.getElementById('badgeDuration');
+    
+    if (badgeYear) badgeYear.textContent = data.year;
+    if (badgeRating) badgeRating.textContent = data.rating;
+    if (badgeDuration) badgeDuration.textContent = data.duration;
     
     // Update categories
     const categoriesContainer = document.getElementById('modalCategories');
-    categoriesContainer.innerHTML = data.categories
-        .map(cat => `<span class="modal-category">${cat}</span>`)
-        .join('');
+    if (categoriesContainer) {
+        categoriesContainer.innerHTML = data.categories
+            .map(cat => `<span class="modal-category">${cat}</span>`)
+            .join('');
+    }
     
     // Update video
-    modalVideo.src = data.videoSrc;
+    if (modalVideo) {
+        modalVideo.src = data.videoSrc;
+    }
     
     // Show modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    modalVideo.play();
+    if (modalVideo) {
+        modalVideo.play().catch(err => console.log('Video autoplay prevented:', err));
+    }
 }
 
 // Close Modal
@@ -557,8 +520,11 @@ function closeDocModal() {
     
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
+    
+    if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    }
 }
 
 // Read More
@@ -568,29 +534,10 @@ function readMoreDoc() {
 
 // Watchlist
 function addToWatchlist() {
-    const title = document.getElementById('modalTitle').textContent;
+    const modalTitle = document.getElementById('modalTitle');
+    const title = modalTitle ? modalTitle.textContent : 'This item';
     alert(`"${title}" added to Watchlist! ✓`);
 }
-
-// Click outside to close
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('docModal');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) closeDocModal();
-        });
-    }
-});
-
-// Escape key to close
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        const modal = document.getElementById('docModal');
-        if (modal && modal.classList.contains('active')) {
-            closeDocModal();
-        }
-    }
-});
 
 // Make functions globally accessible
 window.openDocModal = openDocModal;
@@ -598,18 +545,46 @@ window.closeDocModal = closeDocModal;
 window.readMoreDoc = readMoreDoc;
 window.addToWatchlist = addToWatchlist;
 
-console.log('✅ Documentation Modal System Initialized');
+// ==================== INITIALIZE ON DOM READY ====================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎬 Porto Production Website Loaded!');
+    
+    // Initialize portfolio
+    renderPortfolio('all');
+    console.log('✅ Portfolio initialized');
+    
+    // Add click handlers to doc cards
+    const docCards = document.querySelectorAll('.doc-card');
+    docCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const docKey = this.getAttribute('data-doc');
+            if (docKey) {
+                openDocModal(docKey);
+            }
+        });
+    });
+    console.log(`✅ Documentation cards initialized (${docCards.length} cards)`);
+    
+    // Modal outside click handler
+    const modal = document.getElementById('docModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeDocModal();
+        });
+        console.log('✅ Modal handlers initialized');
+    }
+    
+    // Escape key handler
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('docModal');
+            if (modal && modal.classList.contains('active')) {
+                closeDocModal();
+            }
+        }
+    });
+    
+    console.log('✅ All features initialized successfully!');
+});
 
-
-
-// ==================== CONSOLE LOG ====================
-console.log('🎬 Porto Production Website Loaded Successfully! ✨');
-console.log('📝 All features initialized:');
-console.log('   ✅ Navbar scroll effect');
-console.log('   ✅ Hamburger menu');
-console.log('   ✅ Smooth scrolling');
-console.log('   ✅ Active nav links');
-console.log('   ✅ Scroll animations');
-console.log('   ✅ Portfolio slider (drag, touch, wheel)');
-console.log('   ✅ File upload display');
-console.log('   ✅ Form submission with results');
+console.log('📝 Script loaded - waiting for DOM...');
