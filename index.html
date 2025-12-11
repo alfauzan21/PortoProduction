@@ -154,36 +154,32 @@
         <div class="container">
             <h2 class="section-title">Documentation</h2>
             <div class="doc-cards">
-                <div class="doc-card"
-                    onclick="openDocModal('Corporate Event 2024', 'A comprehensive documentation of our corporate event held in Jakarta. This event showcased the latest innovations in production technology and creative storytelling techniques.', 'Porto Production Team', 'Creative Team', 'Jakarta Convention Center')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 1" class="doc-card-image">
+                <div class="doc-card" data-doc="corporate">
+                    <img src="assets/img/Laurel JAFF.jpg" alt="Corporate Event" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Corporate Event</h3>
                         <p class="doc-card-subtitle">Jakarta 2024</p>
                     </div>
                 </div>
     
-                <div class="doc-card"
-                    onclick="openDocModal('Product Launch Bali', 'An exclusive product launch event captured in the beautiful island of Bali. Featuring stunning cinematography and compelling brand storytelling.', 'Michael Anderson', 'Sarah Johnson, Mike Chen', 'Bali Seminyak')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 2" class="doc-card-image">
+                <div class="doc-card" data-doc="product">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=600&fit=crop" alt="Product Launch" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Product Launch</h3>
                         <p class="doc-card-subtitle">Bali 2024</p>
                     </div>
                 </div>
     
-                <div class="doc-card"
-                    onclick="openDocModal('Music Festival Bandung', 'A three-day music festival documentation featuring local and international artists. Captured with multi-camera setup and drone cinematography.', 'David Lee', 'Porto Creative Studio', 'Trans Studio Bandung')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 3" class="doc-card-image">
+                <div class="doc-card" data-doc="music">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&h=600&fit=crop" alt="Music Festival" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Music Festival</h3>
                         <p class="doc-card-subtitle">Bandung 2024</p>
                     </div>
                 </div>
     
-                <div class="doc-card"
-                    onclick="openDocModal('Brand Campaign Surabaya', 'A creative brand campaign shoot in Surabaya featuring lifestyle and product photography. Showcasing modern urban aesthetics and innovative compositions.', 'Lisa Williams', 'Brand Team', 'Surabaya City Center')">
-                    <img src="assets/img/Laurel JAFF.jpg" alt="Documentation 4" class="doc-card-image">
+                <div class="doc-card" data-doc="brand">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=600&fit=crop" alt="Brand Campaign" class="doc-card-image">
                     <div class="doc-card-content">
                         <h3 class="doc-card-title">Brand Campaign</h3>
                         <p class="doc-card-subtitle">Surabaya 2024</p>
@@ -789,90 +785,32 @@
             </div>
     
             <div class="modal-content">
-                <!-- Video Section -->
                 <div class="modal-video-section">
-                    <div class="modal-video-frame">
-                        <div class="modal-video-wrapper">
-                            <video id="modalVideo" controls>
-                                <source src="assets/video/video-porto.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
+                    <div class="modal-video-wrapper">
+                        <video id="modalVideo" controls>
+                            <source src="assets/video/video-porto.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
     
-                <!-- Info Section -->
                 <div class="modal-info-section">
+                    <h2 class="modal-title" id="modalTitle">Title</h2>
+                    <p class="modal-synopsis-text" id="modalSynopsis">Synopsis</p>
                     <div>
-                        <h2 class="modal-title" id="modalTitle">Corporate Event Documentation</h2>
-    
-                        <div class="modal-meta">
-                            <span class="modal-badge year">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span id="badgeYear">2024</span>
-                            </span>
-                            <span class="modal-badge rating">
-                                <i class="fas fa-star"></i>
-                                <span id="badgeRating">9.5</span>
-                            </span>
-                            <span class="modal-badge duration">
-                                <i class="fas fa-clock"></i>
-                                <span id="badgeDuration">15 min</span>
-                            </span>
-                        </div>
-    
-                        <div class="modal-categories" id="modalCategories">
-                            <span class="modal-category">Corporate</span>
-                            <span class="modal-category">Event</span>
-                            <span class="modal-category">Documentary</span>
-                        </div>
-    
-                        <div class="modal-synopsis">
-                            <div class="modal-synopsis-label">Synopsis</div>
-                            <p class="modal-synopsis-text" id="modalSynopsis">
-                                Default synopsis text will be replaced dynamically.
-                            </p>
-                        </div>
-    
-                        <div class="modal-details">
-                            <div class="modal-detail-item">
-                                <i class="fas fa-film"></i>
-                                <div class="modal-detail-content">
-                                    <div class="modal-detail-label">Director</div>
-                                    <div class="modal-detail-value" id="modalDirector">-</div>
-                                </div>
-                            </div>
-                            <div class="modal-detail-item">
-                                <i class="fas fa-pen-fancy"></i>
-                                <div class="modal-detail-content">
-                                    <div class="modal-detail-label">Writers</div>
-                                    <div class="modal-detail-value" id="modalWriters">-</div>
-                                </div>
-                            </div>
-                            <div class="modal-detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div class="modal-detail-content">
-                                    <div class="modal-detail-label">Location</div>
-                                    <div class="modal-detail-value" id="modalLocation">-</div>
-                                </div>
-                            </div>
-                        </div>
+                        <p><strong>Director:</strong> <span id="modalDirector"></span></p>
+                        <p><strong>Writers:</strong> <span id="modalWriters"></span></p>
+                        <p><strong>Location:</strong> <span id="modalLocation"></span></p>
                     </div>
-    
-                    <div class="modal-buttons">
-                        <button class="modal-btn modal-btn-primary" onclick="readMoreDoc()">
-                            <i class="fas fa-book-open"></i>
-                            Read More
-                        </button>
-                        <button class="modal-btn modal-btn-secondary" onclick="addToWatchlist()">
-                            <i class="fas fa-plus"></i>
-                            Watchlist
+                    <div style="margin-top: 30px;">
+                        <button class="modal-btn modal-btn-primary" onclick="alert('Read More')">
+                            <i class="fas fa-book-open"></i> Read More
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 
     <script src="js/script.js"></script>
