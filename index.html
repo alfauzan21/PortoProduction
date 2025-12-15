@@ -149,6 +149,404 @@
         </div>
     </section>
 
+    <!DOCTYPE html>
+    <html lang="id">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Porto Production - Documentation Slider</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            body {
+                font-family: "Inter", sans-serif;
+                background: #f8f9fa;
+                padding: 40px 20px;
+            }
+    
+            /* ==================== TORN PAPER EFFECT ==================== */
+            .documentation-section {
+                padding: 120px 0;
+                background: var(--primary-white, #ffffff);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .torn-paper-top,
+            .torn-paper-bottom {
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 50px;
+                background: #f8f9fa;
+                z-index: 2;
+            }
+    
+            .torn-paper-top {
+                top: 0;
+                clip-path: polygon(0 20px,
+                        5% 15px,
+                        10% 25px,
+                        15% 10px,
+                        20% 20px,
+                        25% 15px,
+                        30% 25px,
+                        35% 12px,
+                        40% 22px,
+                        45% 18px,
+                        50% 25px,
+                        55% 15px,
+                        60% 20px,
+                        65% 12px,
+                        70% 23px,
+                        75% 18px,
+                        80% 25px,
+                        85% 15px,
+                        90% 22px,
+                        95% 17px,
+                        100% 23px,
+                        100% 0,
+                        0 0);
+            }
+    
+            .torn-paper-bottom {
+                bottom: 0;
+                clip-path: polygon(0 25px,
+                        5% 32px,
+                        10% 22px,
+                        15% 35px,
+                        20% 28px,
+                        25% 33px,
+                        30% 24px,
+                        35% 34px,
+                        40% 26px,
+                        45% 30px,
+                        50% 22px,
+                        55% 32px,
+                        60% 28px,
+                        65% 35px,
+                        70% 25px,
+                        75% 30px,
+                        80% 23px,
+                        85% 33px,
+                        90% 26px,
+                        95% 31px,
+                        100% 25px,
+                        100% 50px,
+                        0 50px);
+            }
+    
+            /* ==================== SECTION HEADER ==================== */
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+    
+            .section-title {
+                text-align: center;
+                font-family: "Playfair Display", serif;
+                font-size: 52px;
+                font-weight: 800;
+                margin-bottom: 20px;
+                color: #1b4b7f;
+            }
+    
+            .section-subtitle {
+                text-align: center;
+                color: #6b7280;
+                font-size: 18px;
+                margin-bottom: 60px;
+            }
+    
+            /* ==================== SLIDER WRAPPER ==================== */
+            .doc-slider-wrapper {
+                position: relative;
+                overflow: hidden;
+                padding: 20px 0;
+            }
+    
+            .doc-slider {
+                display: flex;
+                gap: 30px;
+                animation: slideLeft 40s linear infinite;
+                will-change: transform;
+            }
+    
+            .doc-slider:hover {
+                animation-play-state: paused;
+            }
+    
+            @keyframes slideLeft {
+                0% {
+                    transform: translateX(0);
+                }
+    
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+    
+            /* ==================== DOC CARD STYLES ==================== */
+            .doc-slide {
+                flex-shrink: 0;
+                border-radius: 20px;
+                overflow: hidden;
+                position: relative;
+                cursor: pointer;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+    
+            /* Landscape Cards (16:9) */
+            .doc-slide.landscape {
+                width: 500px;
+                height: 281px;
+            }
+    
+            /* Portrait Cards (4:5) */
+            .doc-slide.portrait {
+                width: 300px;
+                height: 375px;
+            }
+    
+            .doc-slide:hover {
+                transform: translateY(-15px) scale(1.05);
+                box-shadow: 0 25px 60px rgba(27, 75, 127, 0.3);
+                z-index: 10;
+            }
+    
+            .doc-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.6s ease;
+            }
+    
+            .doc-slide:hover img {
+                transform: scale(1.1);
+            }
+    
+            /* Gradient Overlay */
+            .doc-slide::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(180deg,
+                        transparent 0%,
+                        rgba(27, 75, 127, 0.8) 100%);
+                z-index: 1;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+    
+            .doc-slide:hover::before {
+                opacity: 1;
+            }
+    
+            /* Content Overlay */
+            .doc-slide-content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 25px;
+                color: white;
+                z-index: 2;
+                transform: translateY(20px);
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+    
+            .doc-slide:hover .doc-slide-content {
+                transform: translateY(0);
+                opacity: 1;
+            }
+    
+            .doc-slide-title {
+                font-family: "Playfair Display", serif;
+                font-size: 24px;
+                font-weight: 700;
+                margin-bottom: 8px;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            }
+    
+            .doc-slide-desc {
+                font-size: 14px;
+                opacity: 0.95;
+                line-height: 1.4;
+            }
+    
+            /* ==================== RESPONSIVE ==================== */
+            @media (max-width: 768px) {
+                .section-title {
+                    font-size: 38px;
+                }
+    
+                .section-subtitle {
+                    font-size: 16px;
+                    padding: 0 20px;
+                }
+    
+                .doc-slide.landscape {
+                    width: 400px;
+                    height: 225px;
+                }
+    
+                .doc-slide.portrait {
+                    width: 250px;
+                    height: 313px;
+                }
+    
+                .doc-slider {
+                    gap: 20px;
+                }
+            }
+    
+            @media (max-width: 480px) {
+                .section-title {
+                    font-size: 32px;
+                }
+    
+                .doc-slide.landscape {
+                    width: 320px;
+                    height: 180px;
+                }
+    
+                .doc-slide.portrait {
+                    width: 200px;
+                    height: 250px;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <!-- Documentation Section -->
+        <section class="documentation-section" id="documentation">
+            <div class="torn-paper-top"></div>
+            <div class="container">
+                <h2 class="section-title">Behind The Scenes</h2>
+                <p class="section-subtitle">Documenting our creative journey</p>
+    
+                <div class="doc-slider-wrapper">
+                    <div class="doc-slider" id="docSlider">
+                        <!-- Landscape Card 1 -->
+                        <div class="doc-slide landscape">
+                            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=450&fit=crop"
+                                alt="Film Production">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Film Production</h3>
+                                <p class="doc-slide-desc">Behind the scenes of our latest commercial shoot in Jakarta</p>
+                            </div>
+                        </div>
+    
+                        <!-- Portrait Card 1 -->
+                        <div class="doc-slide portrait">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=500&fit=crop"
+                                alt="Camera Setup">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Camera Setup</h3>
+                                <p class="doc-slide-desc">Professional equipment for cinematic quality</p>
+                            </div>
+                        </div>
+    
+                        <!-- Landscape Card 2 -->
+                        <div class="doc-slide landscape">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop"
+                                alt="Studio Session">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Studio Session</h3>
+                                <p class="doc-slide-desc">Recording and production in our state-of-the-art studio</p>
+                            </div>
+                        </div>
+    
+                        <!-- Portrait Card 2 -->
+                        <div class="doc-slide portrait">
+                            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=500&fit=crop"
+                                alt="Lighting Design">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Lighting Design</h3>
+                                <p class="doc-slide-desc">Creating the perfect atmosphere with professional lighting</p>
+                            </div>
+                        </div>
+    
+                        <!-- Landscape Card 3 -->
+                        <div class="doc-slide landscape">
+                            <img src="https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6?w=800&h=450&fit=crop"
+                                alt="Post Production">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Post Production</h3>
+                                <p class="doc-slide-desc">Editing and color grading for the final masterpiece</p>
+                            </div>
+                        </div>
+    
+                        <!-- Portrait Card 3 -->
+                        <div class="doc-slide portrait">
+                            <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?w=400&h=500&fit=crop"
+                                alt="Team Collaboration">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Team Collaboration</h3>
+                                <p class="doc-slide-desc">Working together to bring visions to life</p>
+                            </div>
+                        </div>
+    
+                        <!-- Duplicate for seamless loop -->
+                        <div class="doc-slide landscape">
+                            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=450&fit=crop"
+                                alt="Film Production">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Film Production</h3>
+                                <p class="doc-slide-desc">Behind the scenes of our latest commercial shoot in Jakarta</p>
+                            </div>
+                        </div>
+    
+                        <div class="doc-slide portrait">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=500&fit=crop"
+                                alt="Camera Setup">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Camera Setup</h3>
+                                <p class="doc-slide-desc">Professional equipment for cinematic quality</p>
+                            </div>
+                        </div>
+    
+                        <div class="doc-slide landscape">
+                            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&h=450&fit=crop"
+                                alt="Studio Session">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Studio Session</h3>
+                                <p class="doc-slide-desc">Recording and production in our state-of-the-art studio</p>
+                            </div>
+                        </div>
+    
+                        <div class="doc-slide portrait">
+                            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=500&fit=crop"
+                                alt="Lighting Design">
+                            <div class="doc-slide-content">
+                                <h3 class="doc-slide-title">Lighting Design</h3>
+                                <p class="doc-slide-desc">Creating the perfect atmosphere with professional lighting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="torn-paper-bottom"></div>
+        </section>
+    </body>
+    
+    </html>
+
     <!-- Documentation Section -->
     <section class="documentation-section" id="documentation">
         <div class="container">
