@@ -916,10 +916,36 @@
     
             <div class="modal-content">
                 <div class="modal-video-section">
-                    <div class="modal-video-wrapper">
-                        <video id="modalVideo" controls>
-                            <source src="assets/video/video-porto.mp4" type="video/mp4">
-                        </video>
+                    <div class="modal-video-frame">
+                        <div class="modal-video-wrapper">
+                            <video id="modalVideo">
+                                <source src="assets/video/video-porto.mp4" type="video/mp4">
+                            </video>
+    
+                            <!-- Modal Video Play Overlay -->
+                            <div class="modal-video-overlay" id="modalVideoOverlay">
+                                <div class="modal-video-play-btn" id="modalPlayBtn">
+                                    <img src="assets/img/LOGO PORTO - WHITE.png" alt="Play Video" class="modal-play-logo">
+                                    <div class="modal-play-icon-pulse"></div>
+                                </div>
+                            </div>
+    
+                            <!-- Modal Video Controls -->
+                            <div class="modal-video-controls-wrapper" id="modalVideoControls">
+                                <button class="modal-control-btn" id="modalToggleBtn">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="modal-progress-bar" id="modalProgressBar">
+                                    <div class="modal-progress-filled" id="modalProgressFilled"></div>
+                                </div>
+                                <button class="modal-control-btn" id="modalMuteBtn">
+                                    <i class="fas fa-volume-mute"></i>
+                                </button>
+                                <button class="modal-control-btn" id="modalFullscreenBtn">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
     

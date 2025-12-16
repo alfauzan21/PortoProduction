@@ -560,3 +560,215 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 console.log("📝 Script loaded - waiting for DOM...");
+
+// ==================== MODAL CUSTOM VIDEO PLAYER ====================
+// Tambahkan JavaScript ini ke file script.js (setelah hero video player)
+
+// Modal Video Player Elements
+const modalVideo = document.getElementById("modalVideo");
+const modalVideoOverlay = document.getElementById("modalVideoOverlay");
+const modalPlayBtn = document.getElementById("modalPlayBtn");
+const modalVideoControls = document.getElementById("modalVideoControls");
+const modalToggleBtn = document.getElementById("modalToggleBtn");
+const modalMuteBtn = document.getElementById("modalMuteBtn");
+const modalFullscreenBtn = document.getElementById("modalFullscreenBtn");
+const modalProgressBar = document.getElementById("modalProgressBar");
+const modalProgressFilled = document.getElementById("modalProgressFilled");
+
+// Modal Video State
+let isModalVideoPlaying = false;
+let isModalVideoMuted = true;
+
+// Initialize: Modal Video starts muted and paused
+if (modalVideo) {
+  modalVideo.muted = true;
+  modalVideo.pause();
+}
+
+// Play Modal Video When Logo is Clicked
+if (modalVideoOverlay) {
+  modalVideoOverlay.addEventListener("click", () => {
+    playModalVideo();
+  });
+}
+
+// Function: Play Modal Video
+function playModalVideo() {
+  if (modalVideo && modalVideoOverlay && modalVideoControls) {
+    modalVideo.play();
+    modalVideo.muted = true; // Start muted
+    isModalVideoPlaying = true;
+    isModalVideoMuted = true;
+
+    // Hide overlay, show controls
+    modalVideoOverlay.classList.add("hidden");
+    modalVideoControls.classList.add("active");
+
+    // Update button icons
+    updateModalToggleIcon();
+    updateModalMuteIcon();
+  }
+}
+
+// Toggle Play/Pause for Modal
+if (modalToggleBtn) {
+  modalToggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (modalVideo.paused) {
+      modalVideo.play();
+      isModalVideoPlaying = true;
+    } else {
+      modalVideo.pause();
+      isModalVideoPlaying = false;
+    }
+
+    updateModalToggleIcon();
+  });
+}
+
+// Toggle Mute/Unmute for Modal
+if (modalMuteBtn) {
+  modalMuteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    modalVideo.muted = !modalVideo.muted;
+    isModalVideoMuted = modalVideo.muted;
+
+    updateModalMuteIcon();
+  });
+}
+
+// Fullscreen Toggle for Modal
+if (modalFullscreenBtn) {
+  modalFullscreenBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (!document.fullscreenElement) {
+      if (modalVideo.requestFullscreen) {
+        modalVideo.requestFullscreen();
+      } else if (modalVideo.webkitRequestFullscreen) {
+        modalVideo.webkitRequestFullscreen();
+      } else if (modalVideo.msRequestFullscreen) {
+        modalVideo.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  });
+}
+
+// Update Play/Pause Icon for Modal
+function updateModalToggleIcon() {
+  if (modalToggleBtn) {
+    const icon = modalToggleBtn.querySelector("i");
+    if (icon) {
+      if (isModalVideoPlaying) {
+        icon.className = "fas fa-pause";
+      } else {
+        icon.className = "fas fa-play";
+      }
+    }
+  }
+}
+
+// Update Mute/Unmute Icon for Modal
+function updateModalMuteIcon() {
+  if (modalMuteBtn) {
+    const icon = modalMuteBtn.querySelector("i");
+    if (icon) {
+      if (isModalVideoMuted) {
+        icon.className = "fas fa-volume-mute";
+      } else {
+        icon.className = "fas fa-volume-up";
+      }
+    }
+  }
+}
+
+// Update Progress Bar
+if (modalVideo) {
+  modalVideo.addEventListener("timeupdate", () => {
+    if (modalProgressFilled && modalVideo.duration) {
+      const progress = (modalVideo.currentTime / modalVideo.duration) * 100;
+      modalProgressFilled.style.width = progress + "%";
+    }
+  });
+}
+
+// Click Progress Bar to Seek
+if (modalProgressBar) {
+  modalProgressBar.addEventListener("click", (e) => {
+    if (modalVideo.duration) {
+      const rect = modalProgressBar.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      modalVideo.currentTime = pos * modalVideo.duration;
+    }
+  });
+}
+
+// Modal Video Ended Event
+if (modalVideo) {
+  modalVideo.addEventListener("ended", () => {
+    isModalVideoPlaying = false;
+    modalVideoOverlay.classList.remove("hidden");
+    modalVideoControls.classList.remove("active");
+    updateModalToggleIcon();
+  });
+}
+
+// Hide Modal Controls After 3 Seconds
+let modalControlsTimeout;
+const modalVideoWrapper = document.querySelector(".modal-video-wrapper");
+
+if (modalVideoWrapper) {
+  modalVideoWrapper.addEventListener("mousemove", () => {
+    if (isModalVideoPlaying) {
+      modalVideoControls.classList.add("active");
+
+      clearTimeout(modalControlsTimeout);
+      modalControlsTimeout = setTimeout(() => {
+        modalVideoControls.classList.remove("active");
+      }, 3000);
+    }
+  });
+
+  modalVideoWrapper.addEventListener("mouseleave", () => {
+    if (isModalVideoPlaying) {
+      setTimeout(() => {
+        modalVideoControls.classList.remove("active");
+      }, 1000);
+    }
+  });
+}
+
+// ==================== UPDATE CLOSE MODAL FUNCTION ====================
+// Update fungsi closeDocModal yang sudah ada
+function closeDocModal() {
+  const modal = document.getElementById("docModal");
+  modal.classList.remove("active");
+
+  // Reset modal video
+  if (modalVideo) {
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+    isModalVideoPlaying = false;
+  }
+
+  // Reset UI
+  if (modalVideoOverlay) {
+    modalVideoOverlay.classList.remove("hidden");
+  }
+  if (modalVideoControls) {
+    modalVideoControls.classList.remove("active");
+  }
+  if (modalProgressFilled) {
+    modalProgressFilled.style.width = "0%";
+  }
+
+  updateModalToggleIcon();
+}
+
+console.log("✅ Modal Custom Video Player Initialized!");

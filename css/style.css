@@ -1409,6 +1409,229 @@ body {
     padding: 8px 14px;
   }
 }
+
+/* *====================MODAL VIDEO PLAY OVERLAY====================*/  */
+
+.modal-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 10;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.modal-video-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Modal Logo Play Button */
+.modal-video-play-btn {
+  position: relative;
+  width: 150px;
+  height: auto;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: floatModalLogo 3s ease-in-out infinite;
+}
+
+.modal-video-play-btn:hover {
+  transform: scale(1.15);
+}
+
+.modal-play-logo {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+  position: relative;
+  z-index: 2;
+}
+
+/* Modal Pulse Effect */
+.modal-play-icon-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%);
+  border-radius: 50%;
+  animation: modalPulseEffect 2s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes modalPulseEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes floatModalLogo {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ==================== MODAL VIDEO CONTROLS ==================== */
+.modal-video-controls-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      transparent 100%);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.modal-video-controls-wrapper.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-control-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-control-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.modal-control-btn i {
+  pointer-events: none;
+}
+
+/* Progress Bar */
+.modal-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-progress-filled {
+  height: 100%;
+  background: linear-gradient(90deg, #1b4b7f 0%, #3b82f6 100%);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+}
+
+.modal-progress-filled::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-progress-bar:hover .modal-progress-filled::after {
+  transform: translateY(-50%) scale(1.3);
+}
+
+/* ==================== RESPONSIVE MODAL VIDEO ==================== */
+@media (max-width: 768px) {
+  .modal-video-play-btn {
+    width: 100px;
+  }
+
+  .modal-play-icon-pulse {
+    width: 120px;
+    height: 120px;
+  }
+
+  .modal-video-controls-wrapper {
+    padding: 15px 10px;
+    gap: 10px;
+  }
+
+  .modal-control-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .modal-progress-bar {
+    height: 5px;
+  }
+
+  .modal-progress-filled::after {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-video-play-btn {
+    width: 80px;
+  }
+
+  .modal-play-icon-pulse {
+    width: 100px;
+    height: 100px;
+  }
+
+  .modal-control-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+}
+
 /* ==================== PORTFOLIO FILTER SECTION ==================== */
 .portfolio-filter-section {
   padding: 100px 0;
