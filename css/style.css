@@ -900,7 +900,7 @@ body {
 .doc-slider {
   display: flex;
   gap: 30px;
-  animation: slideLeft 40s linear infinite;
+  animation: slideLeft 30s linear infinite;
   will-change: transform;
 }
 
