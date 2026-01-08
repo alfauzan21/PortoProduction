@@ -325,7 +325,7 @@ const portfolioData = [
   },
 ];
 
-// ==================== DOCUMENTATION DATA - DECLARE FIRST ====================
+// ==================== DOCUMENTATION DATA ====================
 const docData = {
   corporate: {
     title: "Corporate Event 2024",
@@ -457,9 +457,9 @@ filterButtons.forEach((btn) => {
   });
 });
 
-// ==================== PROFESSIONAL MODAL VIDEO PLAYER - NETFLIX/HBO STYLE ====================
+// ==================== MODAL VIDEO PLAYER - CONSOLIDATED VERSION ====================
 
-// Modal Elements
+// Modal Elements (Single Definition)
 const modalVideo = document.getElementById("modalVideo");
 const modalVideoOverlay = document.getElementById("modalVideoOverlay");
 const modalPlayBtn = document.getElementById("modalPlayBtn");
@@ -469,8 +469,6 @@ const modalMuteBtn = document.getElementById("modalMuteBtn");
 const modalFullscreenBtn = document.getElementById("modalFullscreenBtn");
 const modalProgressBar = document.getElementById("modalProgressBar");
 const modalProgressFilled = document.getElementById("modalProgressFilled");
-const currentTimeDisplay = document.getElementById("currentTime");
-const totalTimeDisplay = document.getElementById("totalTime");
 
 // Modal State
 let isModalVideoPlaying = false;
@@ -490,21 +488,13 @@ function formatTime(seconds) {
   return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
-// Update Time Display
+// Update Progress Bar
 if (modalVideo) {
-  modalVideo.addEventListener("loadedmetadata", () => {
-    totalTimeDisplay.textContent = formatTime(modalVideo.duration);
-  });
-
   modalVideo.addEventListener("timeupdate", () => {
-    // Update progress bar
-    if (modalVideo.duration) {
+    if (modalProgressFilled && modalVideo.duration) {
       const progress = (modalVideo.currentTime / modalVideo.duration) * 100;
       modalProgressFilled.style.width = progress + "%";
     }
-
-    // Update time display
-    currentTimeDisplay.textContent = formatTime(modalVideo.currentTime);
   });
 }
 
@@ -656,7 +646,56 @@ if (modalVideoWrapper) {
   });
 }
 
-// Update closeDocModal Function
+// ==================== MODAL FUNCTIONS ====================
+
+// Open Documentation Modal
+function openDocModal(docKey) {
+  const modal = document.getElementById("docModal");
+  const data = docData[docKey];
+
+  if (!data || !modal) {
+    console.error("Modal data or element not found");
+    return;
+  }
+
+  // Populate modal content
+  document.getElementById("modalTitle").textContent = data.title;
+  document.getElementById("modalSynopsis").textContent = data.synopsis;
+  document.getElementById("modalDirector").textContent = data.director;
+  document.getElementById("modalWriters").textContent = data.writers;
+  document.getElementById("modalLocation").textContent = data.location;
+
+  // Set video source
+  if (modalVideo) {
+    modalVideo.src = data.videoSrc;
+    modalVideo.load();
+  }
+
+  // Show modal
+  modal.classList.add("active");
+
+  // Reset video state
+  if (modalVideo) {
+    modalVideo.currentTime = 0;
+    modalVideo.pause();
+    isModalVideoPlaying = false;
+  }
+
+  // Reset UI
+  if (modalVideoOverlay) {
+    modalVideoOverlay.classList.remove("hidden");
+  }
+  if (modalVideoControls) {
+    modalVideoControls.classList.remove("active");
+  }
+  if (modalProgressFilled) {
+    modalProgressFilled.style.width = "0%";
+  }
+
+  updateModalToggleIcon();
+}
+
+// Close Documentation Modal
 function closeDocModal() {
   const modal = document.getElementById("docModal");
   modal.classList.remove("active");
@@ -692,28 +731,28 @@ document.addEventListener("keydown", (e) => {
       case " ":
       case "k":
         e.preventDefault();
-        modalToggleBtn.click();
+        if (modalToggleBtn) modalToggleBtn.click();
         break;
       case "m":
         e.preventDefault();
-        modalMuteBtn.click();
+        if (modalMuteBtn) modalMuteBtn.click();
         break;
       case "f":
         e.preventDefault();
-        modalFullscreenBtn.click();
+        if (modalFullscreenBtn) modalFullscreenBtn.click();
         break;
       case "Escape":
         closeDocModal();
         break;
       case "ArrowLeft":
         e.preventDefault();
-        if (modalVideo.currentTime > 0) {
+        if (modalVideo && modalVideo.currentTime > 0) {
           modalVideo.currentTime -= 10;
         }
         break;
       case "ArrowRight":
         e.preventDefault();
-        if (modalVideo.currentTime < modalVideo.duration) {
+        if (modalVideo && modalVideo.currentTime < modalVideo.duration) {
           modalVideo.currentTime += 10;
         }
         break;
@@ -721,12 +760,9 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// Make function globally accessible
+// Make functions globally accessible
+window.openDocModal = openDocModal;
 window.closeDocModal = closeDocModal;
-
-console.log(
-  "✅ Professional Modal Video Player Initialized (Netflix/HBO Style)!"
-);
 
 // ==================== INITIALIZE ON DOM READY ====================
 document.addEventListener("DOMContentLoaded", function () {
@@ -757,229 +793,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Modal handlers initialized");
   }
 
-  // Escape key handler
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      const modal = document.getElementById("docModal");
-      if (modal && modal.classList.contains("active")) {
-        closeDocModal();
-      }
-    }
-  });
-
   console.log("✅ All features initialized successfully!");
 });
 
 console.log("📝 Script loaded - waiting for DOM...");
-
-// ==================== MODAL CUSTOM VIDEO PLAYER ====================
-// Tambahkan JavaScript ini ke file script.js (setelah hero video player)
-
-// Modal Video Player Elements
-const modalVideo = document.getElementById("modalVideo");
-const modalVideoOverlay = document.getElementById("modalVideoOverlay");
-const modalPlayBtn = document.getElementById("modalPlayBtn");
-const modalVideoControls = document.getElementById("modalVideoControls");
-const modalToggleBtn = document.getElementById("modalToggleBtn");
-const modalMuteBtn = document.getElementById("modalMuteBtn");
-const modalFullscreenBtn = document.getElementById("modalFullscreenBtn");
-const modalProgressBar = document.getElementById("modalProgressBar");
-const modalProgressFilled = document.getElementById("modalProgressFilled");
-
-// Modal Video State
-let isModalVideoPlaying = false;
-let isModalVideoMuted = true;
-
-// Initialize: Modal Video starts muted and paused
-if (modalVideo) {
-  modalVideo.muted = true;
-  modalVideo.pause();
-}
-
-// Play Modal Video When Logo is Clicked
-if (modalVideoOverlay) {
-  modalVideoOverlay.addEventListener("click", () => {
-    playModalVideo();
-  });
-}
-
-// Function: Play Modal Video
-function playModalVideo() {
-  if (modalVideo && modalVideoOverlay && modalVideoControls) {
-    modalVideo.play();
-    modalVideo.muted = true; // Start muted
-    isModalVideoPlaying = true;
-    isModalVideoMuted = true;
-
-    // Hide overlay, show controls
-    modalVideoOverlay.classList.add("hidden");
-    modalVideoControls.classList.add("active");
-
-    // Update button icons
-    updateModalToggleIcon();
-    updateModalMuteIcon();
-  }
-}
-
-// Toggle Play/Pause for Modal
-if (modalToggleBtn) {
-  modalToggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    if (modalVideo.paused) {
-      modalVideo.play();
-      isModalVideoPlaying = true;
-    } else {
-      modalVideo.pause();
-      isModalVideoPlaying = false;
-    }
-
-    updateModalToggleIcon();
-  });
-}
-
-// Toggle Mute/Unmute for Modal
-if (modalMuteBtn) {
-  modalMuteBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    modalVideo.muted = !modalVideo.muted;
-    isModalVideoMuted = modalVideo.muted;
-
-    updateModalMuteIcon();
-  });
-}
-
-// Fullscreen Toggle for Modal
-if (modalFullscreenBtn) {
-  modalFullscreenBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-
-    if (!document.fullscreenElement) {
-      if (modalVideo.requestFullscreen) {
-        modalVideo.requestFullscreen();
-      } else if (modalVideo.webkitRequestFullscreen) {
-        modalVideo.webkitRequestFullscreen();
-      } else if (modalVideo.msRequestFullscreen) {
-        modalVideo.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    }
-  });
-}
-
-// Update Play/Pause Icon for Modal
-function updateModalToggleIcon() {
-  if (modalToggleBtn) {
-    const icon = modalToggleBtn.querySelector("i");
-    if (icon) {
-      if (isModalVideoPlaying) {
-        icon.className = "fas fa-pause";
-      } else {
-        icon.className = "fas fa-play";
-      }
-    }
-  }
-}
-
-// Update Mute/Unmute Icon for Modal
-function updateModalMuteIcon() {
-  if (modalMuteBtn) {
-    const icon = modalMuteBtn.querySelector("i");
-    if (icon) {
-      if (isModalVideoMuted) {
-        icon.className = "fas fa-volume-mute";
-      } else {
-        icon.className = "fas fa-volume-up";
-      }
-    }
-  }
-}
-
-// Update Progress Bar
-if (modalVideo) {
-  modalVideo.addEventListener("timeupdate", () => {
-    if (modalProgressFilled && modalVideo.duration) {
-      const progress = (modalVideo.currentTime / modalVideo.duration) * 100;
-      modalProgressFilled.style.width = progress + "%";
-    }
-  });
-}
-
-// Click Progress Bar to Seek
-if (modalProgressBar) {
-  modalProgressBar.addEventListener("click", (e) => {
-    if (modalVideo.duration) {
-      const rect = modalProgressBar.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      modalVideo.currentTime = pos * modalVideo.duration;
-    }
-  });
-}
-
-// Modal Video Ended Event
-if (modalVideo) {
-  modalVideo.addEventListener("ended", () => {
-    isModalVideoPlaying = false;
-    modalVideoOverlay.classList.remove("hidden");
-    modalVideoControls.classList.remove("active");
-    updateModalToggleIcon();
-  });
-}
-
-// Hide Modal Controls After 3 Seconds
-let modalControlsTimeout;
-const modalVideoWrapper = document.querySelector(".modal-video-wrapper");
-
-if (modalVideoWrapper) {
-  modalVideoWrapper.addEventListener("mousemove", () => {
-    if (isModalVideoPlaying) {
-      modalVideoControls.classList.add("active");
-
-      clearTimeout(modalControlsTimeout);
-      modalControlsTimeout = setTimeout(() => {
-        modalVideoControls.classList.remove("active");
-      }, 3000);
-    }
-  });
-
-  modalVideoWrapper.addEventListener("mouseleave", () => {
-    if (isModalVideoPlaying) {
-      setTimeout(() => {
-        modalVideoControls.classList.remove("active");
-      }, 1000);
-    }
-  });
-}
-
-// ==================== UPDATE CLOSE MODAL FUNCTION ====================
-// Update fungsi closeDocModal yang sudah ada
-function closeDocModal() {
-  const modal = document.getElementById("docModal");
-  modal.classList.remove("active");
-
-  // Reset modal video
-  if (modalVideo) {
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
-    isModalVideoPlaying = false;
-  }
-
-  // Reset UI
-  if (modalVideoOverlay) {
-    modalVideoOverlay.classList.remove("hidden");
-  }
-  if (modalVideoControls) {
-    modalVideoControls.classList.remove("active");
-  }
-  if (modalProgressFilled) {
-    modalProgressFilled.style.width = "0%";
-  }
-
-  updateModalToggleIcon();
-}
-
-console.log("✅ Modal Custom Video Player Initialized!");
