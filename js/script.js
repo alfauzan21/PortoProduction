@@ -457,65 +457,276 @@ filterButtons.forEach((btn) => {
   });
 });
 
-// ==================== DOCUMENTATION MODAL FUNCTIONS ====================
-// Open Modal Function
-// Documentation Modal
-function openDocModal(docKey) {
-  const modal = document.getElementById("docModal");
-  const data = docData[docKey];
+// ==================== PROFESSIONAL MODAL VIDEO PLAYER - NETFLIX/HBO STYLE ====================
 
-  document.getElementById("modalTitle").textContent = data.title;
-  document.getElementById("modalSynopsis").textContent = data.synopsis;
-  document.getElementById("modalDirector").textContent = data.director;
-  document.getElementById("modalWriters").textContent = data.writers;
-  document.getElementById("modalLocation").textContent = data.location;
+// Modal Elements
+const modalVideo = document.getElementById("modalVideo");
+const modalVideoOverlay = document.getElementById("modalVideoOverlay");
+const modalPlayBtn = document.getElementById("modalPlayBtn");
+const modalVideoControls = document.getElementById("modalVideoControls");
+const modalToggleBtn = document.getElementById("modalToggleBtn");
+const modalMuteBtn = document.getElementById("modalMuteBtn");
+const modalFullscreenBtn = document.getElementById("modalFullscreenBtn");
+const modalProgressBar = document.getElementById("modalProgressBar");
+const modalProgressFilled = document.getElementById("modalProgressFilled");
+const currentTimeDisplay = document.getElementById("currentTime");
+const totalTimeDisplay = document.getElementById("totalTime");
 
-  modal.classList.add("active");
+// Modal State
+let isModalVideoPlaying = false;
+let isModalVideoMuted = true;
+let controlsTimeout;
+
+// Initialize Modal Video
+if (modalVideo) {
+  modalVideo.muted = true;
+  modalVideo.volume = 0.7;
 }
 
+// Format Time Display
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+}
+
+// Update Time Display
+if (modalVideo) {
+  modalVideo.addEventListener("loadedmetadata", () => {
+    totalTimeDisplay.textContent = formatTime(modalVideo.duration);
+  });
+
+  modalVideo.addEventListener("timeupdate", () => {
+    // Update progress bar
+    if (modalVideo.duration) {
+      const progress = (modalVideo.currentTime / modalVideo.duration) * 100;
+      modalProgressFilled.style.width = progress + "%";
+    }
+
+    // Update time display
+    currentTimeDisplay.textContent = formatTime(modalVideo.currentTime);
+  });
+}
+
+// Play Modal Video
+function playModalVideo() {
+  if (modalVideo && modalVideoOverlay && modalVideoControls) {
+    modalVideo.play();
+    isModalVideoPlaying = true;
+
+    // Hide overlay, show controls
+    modalVideoOverlay.classList.add("hidden");
+    modalVideoControls.classList.add("active");
+
+    updateModalToggleIcon();
+
+    // Auto-hide controls after 3 seconds
+    autoHideControls();
+  }
+}
+
+// Play Button Click
+if (modalVideoOverlay) {
+  modalVideoOverlay.addEventListener("click", playModalVideo);
+}
+
+// Toggle Play/Pause
+if (modalToggleBtn) {
+  modalToggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (modalVideo.paused) {
+      modalVideo.play();
+      isModalVideoPlaying = true;
+    } else {
+      modalVideo.pause();
+      isModalVideoPlaying = false;
+    }
+
+    updateModalToggleIcon();
+  });
+}
+
+// Update Play/Pause Icon
+function updateModalToggleIcon() {
+  if (modalToggleBtn) {
+    const icon = modalToggleBtn.querySelector("i");
+    if (icon) {
+      icon.className = isModalVideoPlaying ? "fas fa-pause" : "fas fa-play";
+    }
+  }
+}
+
+// Toggle Mute/Unmute
+if (modalMuteBtn) {
+  modalMuteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    modalVideo.muted = !modalVideo.muted;
+    isModalVideoMuted = modalVideo.muted;
+
+    updateModalMuteIcon();
+  });
+}
+
+// Update Mute/Unmute Icon
+function updateModalMuteIcon() {
+  if (modalMuteBtn) {
+    const icon = modalMuteBtn.querySelector("i");
+    if (icon) {
+      if (isModalVideoMuted) {
+        icon.className = "fas fa-volume-mute";
+      } else {
+        icon.className = "fas fa-volume-up";
+      }
+    }
+  }
+}
+
+// Fullscreen Toggle
+if (modalFullscreenBtn) {
+  modalFullscreenBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (!document.fullscreenElement) {
+      if (modalVideo.requestFullscreen) {
+        modalVideo.requestFullscreen();
+      } else if (modalVideo.webkitRequestFullscreen) {
+        modalVideo.webkitRequestFullscreen();
+      } else if (modalVideo.msRequestFullscreen) {
+        modalVideo.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  });
+}
+
+// Progress Bar Click to Seek
+if (modalProgressBar) {
+  modalProgressBar.addEventListener("click", (e) => {
+    if (modalVideo.duration) {
+      const rect = modalProgressBar.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      modalVideo.currentTime = pos * modalVideo.duration;
+    }
+  });
+}
+
+// Video Ended Event
+if (modalVideo) {
+  modalVideo.addEventListener("ended", () => {
+    isModalVideoPlaying = false;
+    modalVideoOverlay.classList.remove("hidden");
+    modalVideoControls.classList.remove("active");
+    updateModalToggleIcon();
+  });
+}
+
+// Auto-hide Controls
+function autoHideControls() {
+  clearTimeout(controlsTimeout);
+
+  if (isModalVideoPlaying) {
+    controlsTimeout = setTimeout(() => {
+      modalVideoControls.classList.remove("active");
+    }, 3000);
+  }
+}
+
+// Show Controls on Mouse Move
+const modalVideoWrapper = document.querySelector(".modal-video-wrapper");
+
+if (modalVideoWrapper) {
+  modalVideoWrapper.addEventListener("mousemove", () => {
+    if (isModalVideoPlaying) {
+      modalVideoControls.classList.add("active");
+      autoHideControls();
+    }
+  });
+
+  modalVideoWrapper.addEventListener("mouseleave", () => {
+    if (isModalVideoPlaying) {
+      setTimeout(() => {
+        modalVideoControls.classList.remove("active");
+      }, 500);
+    }
+  });
+}
+
+// Update closeDocModal Function
 function closeDocModal() {
   const modal = document.getElementById("docModal");
-  const video = document.getElementById("modalVideo");
   modal.classList.remove("active");
-  video.pause();
+
+  // Reset video
+  if (modalVideo) {
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+    isModalVideoPlaying = false;
+  }
+
+  // Reset UI
+  if (modalVideoOverlay) {
+    modalVideoOverlay.classList.remove("hidden");
+  }
+  if (modalVideoControls) {
+    modalVideoControls.classList.remove("active");
+  }
+  if (modalProgressFilled) {
+    modalProgressFilled.style.width = "0%";
+  }
+
+  updateModalToggleIcon();
+  clearTimeout(controlsTimeout);
 }
 
-// Add click handlers to doc cards
-document.querySelectorAll(".doc-card").forEach((card) => {
-  card.addEventListener("click", function () {
-    const docKey = this.getAttribute("data-doc");
-    openDocModal(docKey);
-  });
+// Keyboard Controls
+document.addEventListener("keydown", (e) => {
+  const modal = document.getElementById("docModal");
+
+  if (modal && modal.classList.contains("active")) {
+    switch (e.key) {
+      case " ":
+      case "k":
+        e.preventDefault();
+        modalToggleBtn.click();
+        break;
+      case "m":
+        e.preventDefault();
+        modalMuteBtn.click();
+        break;
+      case "f":
+        e.preventDefault();
+        modalFullscreenBtn.click();
+        break;
+      case "Escape":
+        closeDocModal();
+        break;
+      case "ArrowLeft":
+        e.preventDefault();
+        if (modalVideo.currentTime > 0) {
+          modalVideo.currentTime -= 10;
+        }
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        if (modalVideo.currentTime < modalVideo.duration) {
+          modalVideo.currentTime += 10;
+        }
+        break;
+    }
+  }
 });
 
-// Close modal on outside click
-document.getElementById("docModal").addEventListener("click", function (e) {
-  if (e.target === this) closeDocModal();
-});
-
-// Initialize
-renderPortfolio("all");
-console.log("✅ All systems initialized!");
-
-// Read More
-function readMoreDoc() {
-  alert(
-    "Read More clicked! This would navigate to detailed documentation page."
-  );
-}
-
-// Watchlist
-function addToWatchlist() {
-  const modalTitle = document.getElementById("modalTitle");
-  const title = modalTitle ? modalTitle.textContent : "This item";
-  alert(`"${title}" added to Watchlist! ✓`);
-}
-
-// Make functions globally accessible
-window.openDocModal = openDocModal;
+// Make function globally accessible
 window.closeDocModal = closeDocModal;
-window.readMoreDoc = readMoreDoc;
-window.addToWatchlist = addToWatchlist;
+
+console.log(
+  "✅ Professional Modal Video Player Initialized (Netflix/HBO Style)!"
+);
 
 // ==================== INITIALIZE ON DOM READY ====================
 document.addEventListener("DOMContentLoaded", function () {
