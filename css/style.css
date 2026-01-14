@@ -602,7 +602,7 @@ body {
   padding: 120px 0;
   background: var(--primary-white);
   position: relative;
-    overflow: hidden;
+  overflow: hidden;
 } 
 
 .torn-paper-top,
@@ -672,11 +672,9 @@ body {
 
 .section-title {
   text-align: center;
-    font-family: "Playfair Display", serif;
-    font-size: 52px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    color: #1b4b7f;
+  font-size: 18px;
+  color: var(--medium-gray);
+  margin-bottom: 60px;
 }
 
 .doc-cards {
@@ -1312,29 +1310,15 @@ body {
   background: linear-gradient(180deg, #2563a8, #3b82f6);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .modal-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 50px;
-  }
-
-  .modal-title {
-    font-size: 36px;
-  }
-}
-
+/* Responsive Modal */
 @media (max-width: 768px) {
-  .modal-content {
-    padding: 40px 30px;
+  .modal-container {
+    max-width: 100%;
+    margin: 0;
   }
 
-  .modal-close {
-    top: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
+  .modal-info-section {
+    padding: 30px 20px;
   }
 
   .modal-title {
@@ -1347,29 +1331,25 @@ body {
 
   .modal-btn {
     width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
   .modal-overlay {
-    padding: 10px;
+    padding: 0;
   }
 
-  .modal-content {
-    padding: 30px 20px;
+  .modal-container {
+    border-radius: 0;
   }
 
   .modal-title {
     font-size: 24px;
   }
 
-  .modal-meta {
-    gap: 10px;
-  }
-
-  .modal-badge {
-    font-size: 11px;
-    padding: 8px 14px;
+  .modal-info-section {
+    padding: 20px 15px;
   }
 }
 
